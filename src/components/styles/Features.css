@@ -1,0 +1,144 @@
+.why-choose {
+  padding: 6rem 0;
+  background: #170f27;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.why-choose .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.why-choose h2 {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.why-choose .features-grid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.why-choose .feature-card {
+  background: rgba(173, 15, 216, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(25% - 1.125rem);
+  min-width: 250px;
+}
+
+.why-choose .feature-card:hover {
+  transform: translateY(-10px);
+  background: rgba(173, 15, 216, 0.15);
+}
+
+.why-choose .feature-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 26px;
+  background: rgba(173, 15, 216, 0.15);
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.why-choose .feature-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(173, 15, 216, 0.2),
+    rgba(173, 15, 216, 0.1)
+  );
+  z-index: 1;
+}
+
+.why-choose .feature-icon i {
+  font-size: 1.75rem;
+  color: #ad0fd8;
+  position: relative;
+  z-index: 2;
+}
+
+.fa-bolt,
+.fa-globe,
+.fa-shield-halved,
+.fa-sim-card {
+  color: #ad0fd8 !important;
+}
+
+.why-choose h3 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.why-choose p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .why-choose .features-grid {
+    flex-wrap: wrap;
+  }
+
+  .why-choose .feature-card {
+    width: calc(50% - 0.75rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .why-choose {
+    padding: 4rem 0;
+  }
+
+  .why-choose .features-grid {
+    flex-direction: column;
+  }
+
+  .why-choose .feature-card {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .why-choose .feature-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .why-choose .feature-icon i {
+    font-size: 1.5rem;
+  }
+
+  .why-choose h3 {
+    font-size: 1.5rem;
+  }
+
+  .why-choose p {
+    font-size: 1rem;
+  }
+}

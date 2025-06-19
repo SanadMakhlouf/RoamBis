@@ -1,0 +1,38 @@
+.cta {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 13, 46, 0.9) 0%,
+    rgba(45, 27, 78, 0.9) 100%
+  );
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.btn-cta {
+  background: linear-gradient(45deg, #ad0fd8, #d81784);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+}
