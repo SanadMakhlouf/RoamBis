@@ -10,6 +10,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+.landing-page {
   background: linear-gradient(
     135deg,
     #1a0d2e 0%,
@@ -19,18 +23,6 @@ body {
     #8b4fb3 100%
   );
   color: white;
-  min-height: 100vh;
-}
-
-.App {
-  background: linear-gradient(
-    135deg,
-    #1a0d2e 0%,
-    #2d1b4e 25%,
-    #4a2c6a 50%,
-    #6b3d8f 75%,
-    #8b4fb3 100%
-  );
   min-height: 100vh;
 }
 
