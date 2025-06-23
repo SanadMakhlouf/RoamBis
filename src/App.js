@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import WhyTravel from "./components/whytravel";
 import Login from "./components/login";
 import Plans from "./components/Plans";
+import Coverage from "./components/Coverage";
 
 function App() {
   return (
@@ -26,6 +27,16 @@ function App() {
             <>
               <Header />
               <Plans />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/coverage"
+          element={
+            <>
+              <Header />
+              <Coverage />
               <Footer />
             </>
           }

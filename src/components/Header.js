@@ -16,7 +16,7 @@ function Header() {
           <nav className="nav-links">
             <a href="#how-it-works">How it Works</a>
             <Link to="/plans">Plans</Link>
-            <a href="#coverage">Coverage</a>
+            <Link to="/coverage">Coverage</Link>
             <a href="#support">Support</a>
           </nav>
           <div className="header-actions">
