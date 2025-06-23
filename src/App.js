@@ -13,12 +13,23 @@ import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 import WhyTravel from "./components/whytravel";
 import Login from "./components/login";
+import Plans from "./components/Plans";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/plans"
+          element={
+            <>
+              <Header />
+              <Plans />
+              <Footer />
+            </>
+          }
+        />
         <Route
           path="/"
           element={

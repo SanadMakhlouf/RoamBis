@@ -19,6 +19,10 @@
   align-items: center;
 }
 
+.logo a {
+  text-decoration: none;
+}
+
 .logo-image {
   height: 50px;
   width: auto;
@@ -55,7 +59,7 @@
 }
 
 .nav-links a:hover {
-  color: #e91e63;
+  color: #ad0fd8;
 }
 
 .header-actions {
@@ -77,11 +81,14 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
 }
 
 .login-btn:hover {
-  background: rgba(233, 30, 99, 0.2);
-  border-color: #e91e63;
+  background: rgba(173, 15, 216, 0.2);
+  border-color: #ad0fd8;
 }
 
 @media (max-width: 768px) {
