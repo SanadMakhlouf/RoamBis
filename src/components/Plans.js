@@ -34,8 +34,7 @@ function Plans() {
       price: 34.99,
       pricePerGB: "$2.33/GB",
       color: "#ad0fd8",
-      flagUrl:
-        "https://flagsapi.com/BE/flat/64.png",
+      flagUrl: "https://flagsapi.com/BE/flat/64.png",
       tag: "Best Value",
     },
     {
@@ -51,8 +50,7 @@ function Plans() {
       price: 39.99,
       pricePerGB: "$2.00/GB",
       color: "#ad0fd8",
-      flagUrl:
-        "https://flagsapi.com/BE/flat/64.png",
+      flagUrl: "https://flagsapi.com/BE/flat/64.png",
       tag: "Premium",
     },
     {
@@ -68,8 +66,7 @@ function Plans() {
       price: 79.99,
       pricePerGB: "$1.60/GB",
       color: "#ad0fd8",
-      flagUrl:
-        "https://flagsapi.com/BE/flat/64.png",
+      flagUrl: "https://flagsapi.com/BE/flat/64.png",
       tag: "Ultimate",
     },
   ];
@@ -79,13 +76,18 @@ function Plans() {
   return (
     <>
       <section className="plans-hero">
+        <div className="hero-background-pattern"></div>
         <div className="plans-hero-container">
           <div className="plans-hero-content">
+            <div className="hero-badge">
+              <i className="fa-solid fa-globe"></i>
+              <span>International Coverage</span>
+            </div>
             <h1 className="plans-hero-title">
-              France <span>eSIM Plans</span>
+              Connect in <span>France</span> with Premium eSIM Plans
             </h1>
             <p className="plans-hero-subtitle">
-              Enjoy fast and reliable internet in
+              Fast, reliable connectivity across
               <span className="flag-icon">
                 <img
                   src={franceFlagUrl}
@@ -93,24 +95,50 @@ function Plans() {
                   className="inline-flag"
                 />
               </span>
-              France, with no contracts and no roaming fees.
+              France with no contracts, no roaming fees, and instant activation.
             </p>
             <div className="plans-hero-features">
               <div className="hero-feature">
-                <span className="hero-feature-icon">∞</span>
-                <span>Unlimited Plans</span>
+                <span className="hero-feature-icon">
+                  <i className="fa-solid fa-infinity"></i>
+                </span>
+                <div className="hero-feature-text">
+                  <span className="hero-feature-title">Unlimited Plans</span>
+                  <span className="hero-feature-desc">
+                    No data caps or throttling
+                  </span>
+                </div>
               </div>
               <div className="hero-feature">
-                <span className="hero-feature-icon">⚡</span>
-                <span>Fast 5G Data</span>
+                <span className="hero-feature-icon">
+                  <i className="fa-solid fa-bolt"></i>
+                </span>
+                <div className="hero-feature-text">
+                  <span className="hero-feature-title">Ultra-Fast 5G</span>
+                  <span className="hero-feature-desc">
+                    Premium network speeds
+                  </span>
+                </div>
               </div>
               <div className="hero-feature">
-                <span className="hero-feature-icon">📱</span>
-                <span>iPhone + Android</span>
+                <span className="hero-feature-icon">
+                  <i className="fa-solid fa-mobile"></i>
+                </span>
+                <div className="hero-feature-text">
+                  <span className="hero-feature-title">Device Compatible</span>
+                  <span className="hero-feature-desc">
+                    Works with iPhone & Android
+                  </span>
+                </div>
               </div>
+            </div>
+            <div className="hero-cta">
+              <button className="hero-button">View Plans</button>
+              <button className="hero-button-outline">How It Works</button>
             </div>
           </div>
           <div className="plans-hero-image">
+            <div className="image-overlay-circle"></div>
             <img src={plansImage} alt="eSIM Plans for France" />
           </div>
         </div>
@@ -130,15 +158,21 @@ function Plans() {
             </p>
             <div className="plans-features">
               <div className="plan-feature">
-                <span className="feature-icon"><i className="fa-solid fa-check"></i></span>
+                <span className="feature-icon">
+                  <i className="fa-solid fa-check"></i>
+                </span>
                 <span>200+ Countries</span>
               </div>
               <div className="plan-feature">
-                <span className="feature-icon"><i className="fa-solid fa-check"> </i> </span>
+                <span className="feature-icon">
+                  <i className="fa-solid fa-check"> </i>{" "}
+                </span>
                 <span>Instant Setup</span>
               </div>
               <div className="plan-feature">
-                <span className="feature-icon"><i className="fa-solid fa-check"></i> </span>
+                <span className="feature-icon">
+                  <i className="fa-solid fa-check"></i>{" "}
+                </span>
                 <span>Premium Networks</span>
               </div>
             </div>
