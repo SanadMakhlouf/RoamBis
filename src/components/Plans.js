@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles/Plans.css";
-import plansImage from "../assets/img.png";
+import plansImage from "../assets/plans.png";
 
 function Plans() {
   // Dummy data for plans
@@ -35,7 +35,7 @@ function Plans() {
       pricePerGB: "$2.33/GB",
       color: "#ad0fd8",
       flagUrl:
-        "https://flagdownload.com/wp-content/uploads/Flag_of_Japan_flat_round-2048x2048.png",
+        "https://flagsapi.com/BE/flat/64.png",
       tag: "Best Value",
     },
     {
@@ -52,7 +52,7 @@ function Plans() {
       pricePerGB: "$2.00/GB",
       color: "#ad0fd8",
       flagUrl:
-        "https://flagdownload.com/wp-content/uploads/Flag_of_the_United_States_flat_round-2048x2048.png",
+        "https://flagsapi.com/BE/flat/64.png",
       tag: "Premium",
     },
     {
@@ -69,7 +69,7 @@ function Plans() {
       pricePerGB: "$1.60/GB",
       color: "#ad0fd8",
       flagUrl:
-        "https://flagdownload.com/wp-content/uploads/Flag_of_the_United_Nations_flat_round-2048x2048.png",
+        "https://flagsapi.com/BE/flat/64.png",
       tag: "Ultimate",
     },
   ];
@@ -130,15 +130,15 @@ function Plans() {
             </p>
             <div className="plans-features">
               <div className="plan-feature">
-                <span className="feature-icon">•</span>
+                <span className="feature-icon"><i className="fa-solid fa-check"></i></span>
                 <span>200+ Countries</span>
               </div>
               <div className="plan-feature">
-                <span className="feature-icon">•</span>
+                <span className="feature-icon"><i className="fa-solid fa-check"> </i> </span>
                 <span>Instant Setup</span>
               </div>
               <div className="plan-feature">
-                <span className="feature-icon">•</span>
+                <span className="feature-icon"><i className="fa-solid fa-check"></i> </span>
                 <span>Premium Networks</span>
               </div>
             </div>
