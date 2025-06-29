@@ -110,7 +110,7 @@
 
 /* Right side - Login Form */
 .login-form {
-  background:rgba(13, 5, 24, 0.5);
+  background: rgba(13, 5, 24, 0.5);
   backdrop-filter: blur(10px);
   padding: 40px;
   border-radius: 16px;
@@ -270,4 +270,36 @@
   color: #ad0fd8;
   text-decoration: none;
   font-weight: 500;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.sign-in-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -131,10 +131,10 @@ function Plans() {
             </h1>
             <p className="plans-hero-subtitle">
               Fast, reliable connectivity across{" "}
-              {flagUrl && (
+              {countryInfo && countryCode && (
                 <span className="flag-icon">
                   <img
-                    src={flagUrl}
+                    src={getFlagUrl(countryCode)}
                     alt={`${countryInfo.name} flag`}
                     className="country-flag-img"
                     onError={handleFlagError}

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import "./styles/login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,11 +18,66 @@ function Login() {
       ...prevState,
       [name]: value,
     }));
+    // Clear error when user starts typing
+    if (error) setError(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt with:", formData);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server error - Expected JSON response but got HTML. Please check if the API server is running correctly.');
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || `Login failed (${response.status})`);
+      }
+
+      if (data.token) {
+        // Store the token in localStorage
+        localStorage.setItem('token', data.token);
+        // Store user data if needed
+        if (data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
+        // Redirect to dashboard or home
+        navigate('/');
+      } else {
+        throw new Error('No token received from server');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      if (err.message.includes('Failed to fetch')) {
+        setError('Cannot connect to the server. Please check if the backend server is running.');
+      } else {
+        setError(err.message || 'Failed to login. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -53,6 +112,7 @@ function Login() {
       <div className="login-form">
         <h1>Sign In</h1>
         <p>Access your ROAMbis account</p>
+        {error && <div className="error-message">{error}</div>}
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -65,6 +125,7 @@ function Login() {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
                 <i className="fas fa-envelope"></i>
               </div>
@@ -73,14 +134,19 @@ function Login() {
               <label htmlFor="password">Password</label>
               <div className="input-group">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
+                  required
                 />
-                <i className="fas fa-eye"></i>
+                <i
+                  className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+                  onClick={togglePasswordVisibility}
+                  style={{ cursor: "pointer" }}
+                ></i>
               </div>
             </div>
             <div className="form-options">
@@ -92,18 +158,31 @@ function Login() {
                 Forgot password?
               </Link>
             </div>
-            <button type="submit" className="sign-in-button">
-              Sign In <i className="fas fa-arrow-right"></i>
+            <button
+              type="submit"
+              className={`sign-in-button ${loading ? "loading" : ""}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  Sign In <i className="fas fa-arrow-right"></i>
+                </>
+              )}
             </button>
             <div className="continue-with">
               <span>or continue with</span>
             </div>
             <div className="social-login">
-              <button className="google-btn">
+              <button type="button" className="google-btn">
                 <i className="fab fa-google"></i>
                 Google
               </button>
-              <button className="apple-btn">
+              <button type="button" className="apple-btn">
                 <i className="fab fa-apple"></i>
                 Apple
               </button>

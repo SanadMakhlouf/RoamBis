@@ -105,7 +105,6 @@
 .flag-icon {
   width: 60px;
   height: 40px;
-  background: linear-gradient(to bottom, #0057b7 50%, #ffd700 50%);
   border-radius: 6px;
   position: relative;
   overflow: hidden;
