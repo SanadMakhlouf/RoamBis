@@ -16,6 +16,7 @@ import Login from "./components/login";
 import Plans from "./components/Plans";
 import Coverage from "./components/Coverage";
 import Countries from "./components/Countries";
+import HowEsimWorks from "./components/HowEsimWorks";
 
 function App() {
   return (
@@ -58,6 +59,16 @@ function App() {
             <>
               <Header />
               <Coverage />
+              <Footer />
+            </>
+          }
+        />
+          <Route
+          path="/how-it-works"
+          element={
+            <>
+              <Header />
+              <HowEsimWorks />
               <Footer />
             </>
           }
