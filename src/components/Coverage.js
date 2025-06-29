@@ -9,31 +9,96 @@ import { feature } from "topojson-client";
 import "./styles/Coverage.css";
 import plansImage from "../assets/plans.png";
 
-// Corrected: country codes must be strings and match GeoJSON's ID format
-const countriesWithCoverage = {
-  "840": { color: "#ffffff", name: "United States", coverage: "Full Coverage" }, // USA
-  "250": { color: "#ffffff", name: "France", coverage: "Full Coverage" },        // France
-  "392": { color: "#ffffff", name: "Japan", coverage: "Full Coverage" },         // Japan
-  "36":  { color: "#ffffff", name: "Australia", coverage: "Full Coverage" },     // Australia
-  "710": { color: "#ffffff", name: "South Africa", coverage: "Full Coverage" },  // South Africa
-};
-
 const Coverage = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [geoData, setGeoData] = useState(null);
+  const [countriesWithCoverage, setCountriesWithCoverage] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [stats, setStats] = useState({
+    totalCountries: 0,
+    totalNetworks: 500,
+    totalUsers: "1M+",
+  });
+
+  const fetchCountries = async (mapFeatures) => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/countries");
+      if (!response.ok) {
+        throw new Error("Failed to fetch countries");
+      }
+      const data = await response.json();
+      const countriesArray = Array.isArray(data) ? data : data.data || [];
+
+      // Transform the API data into the required format
+      const coverageData = {};
+      countriesArray.forEach((country) => {
+        if (country.active) {
+          // Find the matching country in the map data
+          const matchingGeo = mapFeatures.find(
+            (geo) =>
+              geo.properties.name.toLowerCase() ===
+                country.name.toLowerCase() ||
+              geo.properties.name
+                .toLowerCase()
+                .includes(country.name.toLowerCase()) ||
+              country.name
+                .toLowerCase()
+                .includes(geo.properties.name.toLowerCase())
+          );
+
+          if (matchingGeo) {
+            coverageData[matchingGeo.id] = {
+              color: "#ffffff",
+              name: country.name,
+              coverage: "Full Coverage",
+              code: country.code,
+            };
+            console.log(`Matched ${country.name} with ID: ${matchingGeo.id}`);
+          } else {
+            console.log(`Could not find match for: ${country.name}`);
+          }
+        }
+      });
+
+      console.log("Coverage Data:", coverageData);
+      setCountriesWithCoverage(coverageData);
+      setStats((prev) => ({
+        ...prev,
+        totalCountries: Object.keys(coverageData).length,
+      }));
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching countries:", err);
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch("https://unpkg.com/world-atlas@2.0.2/countries-50m.json")
-      .then((response) => response.json())
-      .then((topology) => {
+    const loadData = async () => {
+      try {
+        // First fetch the map data
+        const response = await fetch(
+          "https://unpkg.com/world-atlas@2.0.2/countries-50m.json"
+        );
+        const topology = await response.json();
         const { countries } = topology.objects;
-        setGeoData(feature(topology, countries));
-      })
-      .catch((error) => {
+        const geojson = feature(topology, countries);
+        setGeoData(geojson);
+
+        // Now that we have the map data, fetch countries
+        await fetchCountries(geojson.features);
+      } catch (error) {
         console.error("Error loading map data:", error);
-      });
+        setError("Failed to load map data");
+        setLoading(false);
+      }
+    };
+
+    loadData();
   }, []);
 
   const getCountryColor = (geo) => {
@@ -51,6 +116,9 @@ const Coverage = () => {
     return geo.properties.name;
   };
 
+  if (loading) return <div className="loading">Loading coverage data...</div>;
+  if (error) return <div className="error">{error}</div>;
+
   return (
     <>
       <section className="coverage-hero">
@@ -65,8 +133,8 @@ const Coverage = () => {
               Connect Anywhere with <span>Global Coverage</span>
             </h1>
             <p className="coverage-hero-subtitle">
-              Stay connected across 200+ countries with premium network coverage
-              and unbeatable speeds.
+              Stay connected across {stats.totalCountries}+ countries with
+              premium network coverage and unbeatable speeds.
             </p>
             <div className="coverage-stats">
               <div className="stat-item">
@@ -74,8 +142,10 @@ const Coverage = () => {
                   <i className="fa-solid fa-globe"></i>
                 </div>
                 <div className="stat-text">
-                  <span className="stat-number">5</span>
-                  <span className="stat-label">Countries with Full Coverage</span>
+                  <span className="stat-number">{stats.totalCountries}</span>
+                  <span className="stat-label">
+                    Countries with Full Coverage
+                  </span>
                 </div>
               </div>
               <div className="stat-item">
@@ -83,7 +153,7 @@ const Coverage = () => {
                   <i className="fa-solid fa-tower-broadcast"></i>
                 </div>
                 <div className="stat-text">
-                  <span className="stat-number">500+</span>
+                  <span className="stat-number">{stats.totalNetworks}+</span>
                   <span className="stat-label">Networks</span>
                 </div>
               </div>
@@ -92,7 +162,7 @@ const Coverage = () => {
                   <i className="fa-solid fa-users"></i>
                 </div>
                 <div className="stat-text">
-                  <span className="stat-number">1M+</span>
+                  <span className="stat-number">{stats.totalUsers}</span>
                   <span className="stat-label">Users</span>
                 </div>
               </div>
@@ -111,7 +181,8 @@ const Coverage = () => {
           <div className="map-header">
             <h2>Our Global Coverage</h2>
             <p>
-              Explore our worldwide network coverage. White highlighted countries indicate full coverage areas.
+              Explore our worldwide network coverage. White highlighted
+              countries indicate full coverage areas.
             </p>
           </div>
 
@@ -119,7 +190,7 @@ const Coverage = () => {
             <div className="map-wrapper">
               <ComposableMap projection="geoMercator">
                 <ZoomableGroup center={[0, 30]} zoom={1.2}>
-                  {geoData ? (
+                  {geoData && (
                     <Geographies geography={geoData}>
                       {({ geographies }) =>
                         geographies.map((geo) => {
@@ -172,8 +243,6 @@ const Coverage = () => {
                         })
                       }
                     </Geographies>
-                  ) : (
-                    <div className="loading-map">Loading map data...</div>
                   )}
                 </ZoomableGroup>
               </ComposableMap>
@@ -206,7 +275,10 @@ const Coverage = () => {
                 <h3>Countries with Full Coverage</h3>
                 <ul>
                   {Object.entries(countriesWithCoverage).map(([code, data]) => (
-                    <li key={code} className={selectedCountry === code ? "selected" : ""}>
+                    <li
+                      key={code}
+                      className={selectedCountry === code ? "selected" : ""}
+                    >
                       {data.name}
                     </li>
                   ))}

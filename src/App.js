@@ -15,12 +15,33 @@ import WhyTravel from "./components/whytravel";
 import Login from "./components/login";
 import Plans from "./components/Plans";
 import Coverage from "./components/Coverage";
+import Countries from "./components/Countries";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/countries"
+          element={
+            <>
+              <Header />
+              <Countries />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/plans/:countryCode"
+          element={
+            <>
+              <Header />
+              <Plans />
+              <Footer />
+            </>
+          }
+        />
         <Route
           path="/plans"
           element={
