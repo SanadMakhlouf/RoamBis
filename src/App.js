@@ -17,6 +17,7 @@ import Plans from "./components/Plans";
 import Coverage from "./components/Coverage";
 import Countries from "./components/Countries";
 import HowEsimWorks from "./components/HowEsimWorks";
+import PlanDetails from "./components/PlanDetails";
 
 function App() {
   return (
@@ -54,6 +55,16 @@ function App() {
           }
         />
         <Route
+          path="/plan-details/:countryCode/:planId"
+          element={
+            <>
+              <Header />
+              <PlanDetails />
+              <Footer />
+            </>
+          }
+        />
+        <Route
           path="/coverage"
           element={
             <>
@@ -63,7 +74,7 @@ function App() {
             </>
           }
         />
-          <Route
+        <Route
           path="/how-it-works"
           element={
             <>

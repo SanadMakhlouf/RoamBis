@@ -1,0 +1,656 @@
+/* Plan Details Page Styles */
+.plan-details-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0f0823;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.plan-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: rgba(15, 8, 35, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.back-button {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bis-text {
+  background-color: #ad0fd8;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.cart-button a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.cart-button a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.plan-details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.plan-details-container.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #ad0fd8;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Plan Info Section */
+.plan-info-section {
+  background-color: #1a0b2e;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-flag {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.flag-icon {
+  width: 60px;
+  height: 40px;
+  background: linear-gradient(to bottom, #0057b7 50%, #ffd700 50%);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.plan-title h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.plan-title p {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.plan-highlights {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  text-align: center;
+}
+
+.highlight-box {
+  flex: 1;
+  padding: 25px 15px;
+}
+
+.highlight-box h2 {
+  margin: 0;
+  font-size: 3.5rem;
+  color: #ad0fd8;
+  font-weight: 700;
+}
+
+.highlight-box p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.plan-features {
+  padding: 30px;
+}
+
+.plan-features h3 {
+  margin: 0 0 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.feature-item svg {
+  color: #ad0fd8;
+}
+
+/* Plan Purchase Section */
+.plan-purchase-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.plan-price {
+  text-align: center;
+}
+
+.plan-price h2 {
+  font-size: 4rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.plan-price p {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+}
+
+.start-date-section h3,
+.quantity-section h3 {
+  margin: 0 0 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.start-options {
+  display: flex;
+  gap: 15px;
+}
+
+.start-option {
+  flex: 1;
+  background-color: rgba(26, 11, 46, 0.8);
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.start-option.selected {
+  border-color: #ad0fd8;
+  background-color: rgba(173, 15, 216, 0.2);
+}
+
+.start-option svg {
+  color: #ad0fd8;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.start-option h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.start-option p {
+  margin: 5px 0 0;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.date-picker {
+  margin-top: 15px;
+}
+
+.date-picker input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(26, 11, 46, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.quantity-section {
+  margin-top: 10px;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(26, 11, 46, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn:hover:not(:disabled) {
+  background-color: rgba(173, 15, 216, 0.2);
+  border-color: #ad0fd8;
+}
+
+.quantity-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-value {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.total-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 10px;
+}
+
+.total-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ad0fd8;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.add-to-cart-btn,
+.buy-now-btn {
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart-btn {
+  background-color: #ad0fd8;
+  color: white;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #8a0cad;
+}
+
+.buy-now-btn {
+  background-color: #e91e63;
+  color: white;
+}
+
+.buy-now-btn:hover {
+  background-color: #c2185b;
+}
+
+.trust-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.trust-section p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+}
+
+.ratings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.stars {
+  color: #ffc107;
+}
+
+.trust-features {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.trust-feature {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Coverage Section */
+.coverage-section {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.coverage-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-item svg {
+  color: #4caf50;
+}
+
+.view-all-btn {
+  background: none;
+  border: none;
+  color: #ad0fd8;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  padding: 0 20px 60px;
+}
+
+.how-it-works-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.step-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.purchase-icon {
+  background-color: rgba(173, 15, 216, 0.2);
+  color: #ad0fd8;
+}
+
+.scan-icon {
+  background-color: rgba(233, 30, 99, 0.2);
+  color: #e91e63;
+}
+
+.connect-icon {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.step-item h3 {
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.step-item p {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .plan-details-container {
+    grid-template-columns: 1fr;
+  }
+
+  .coverage-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .plan-highlights {
+    flex-direction: column;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .start-options {
+    flex-direction: column;
+  }
+
+  .coverage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 2rem;
+}
+
+.error-message {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+}
+
+.error-message .error-icon {
+  font-size: 3rem;
+  color: #ad0fd8;
+  margin-bottom: 1rem;
+}
+
+.error-message h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+.back-button {
+  background-color: #ad0fd8;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #8a0cad;
+}
+
+.country-flag {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.plans-sidebar {
+  width: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-title {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-plan-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.sidebar-plan-card:hover {
+  background: rgba(173, 15, 216, 0.1);
+  border-color: #ad0fd8;
+}
+
+.sidebar-plan-card.active {
+  background: rgba(173, 15, 216, 0.2);
+  border-color: #ad0fd8;
+}
+
+.sidebar-plan-name {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.sidebar-plan-data {
+  color: #ad0fd8;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.sidebar-plan-price {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.plan-details-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}

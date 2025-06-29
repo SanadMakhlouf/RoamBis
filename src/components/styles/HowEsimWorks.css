@@ -304,17 +304,17 @@
   transition: all 0.3s ease;
 }
 
-.esim-feature-card:hover .esim-feature-icon {
-  background: #ad0fd8;
-}
-
 .esim-feature-icon i {
   font-size: 32px;
   color: #ad0fd8;
   transition: all 0.3s ease;
 }
 
-.esim-feature-card:hover  i {
+.esim-feature-card:hover .esim-feature-icon {
+  background: #ad0fd8;
+}
+
+.esim-feature-card:hover .esim-feature-icon i {
   color: white;
 }
 
@@ -549,6 +549,7 @@
 
 .esim-step-card:hover .esim-step-icon i {
   transform: scale(1.2);
+  color: #ad0fd8;
 }
 
 .esim-step-card h3 {

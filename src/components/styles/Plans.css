@@ -89,19 +89,51 @@
 }
 
 .flag-icon {
-  margin: 0 5px;
   display: inline-flex;
   align-items: center;
+  margin: 0 8px;
+}
+
+.country-flag-img,
+.title-flag-img,
+.plan-flag-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title-flag-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
   vertical-align: middle;
 }
 
-.inline-flag {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: inline-block;
-  vertical-align: middle;
+.plan-flag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.plan-flag-img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Add error handling for flag images */
+.country-flag-img[src=""],
+.title-flag-img[src=""],
+.plan-flag-img[src=""] {
+  display: none;
+}
+
+.country-flag-img:not([src]),
+.title-flag-img:not([src]),
+.plan-flag-img:not([src]) {
+  display: none;
 }
 
 .plans-hero-features {

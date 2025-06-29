@@ -29,7 +29,7 @@ function Features() {
           </div>
           <div className="feature-card">
             <div className="feature-icon">
-              <i className="fa-solid fa-shield-halved"></i>
+              <i className="fa-solid fa-shield"></i>
             </div>
             <h3>Secure Connection</h3>
             <p>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./styles/Plans.css";
 import plansImage from "../assets/plans.png";
 
 function Plans() {
   const { countryCode } = useParams();
+  const navigate = useNavigate();
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,8 +17,29 @@ function Plans() {
 
   // Helper function to get flag URL
   const getFlagUrl = (code) => {
-    // Using the flagsapi.com service
-    return `https://flagsapi.com/${code.toUpperCase()}/flat/64.png`;
+    try {
+      // Validate country code format (2 letters)
+      if (!code || typeof code !== "string" || code.length !== 2) {
+        return null;
+      }
+
+      // Convert to uppercase and ensure only letters
+      const cleanCode = code.toUpperCase().replace(/[^A-Z]/g, "");
+      if (cleanCode.length !== 2) {
+        return null;
+      }
+
+      // Using the flagsapi.com service
+      return `https://flagsapi.com/${cleanCode}/flat/64.png`;
+    } catch (err) {
+      console.error("Error generating flag URL:", err);
+      return null;
+    }
+  };
+
+  // Flag error handler
+  const handleFlagError = (e) => {
+    e.target.style.display = "none";
   };
 
   useEffect(() => {
@@ -82,8 +104,15 @@ function Plans() {
     pageNumbers.push(i);
   }
 
+  // Handle plan selection
+  const handlePlanSelect = (planId) => {
+    navigate(`/plan-details/${countryCode}/${planId}`);
+  };
+
   if (loading) return <div className="loading">Loading plans...</div>;
   if (error) return <div className="error">{error}</div>;
+
+  const flagUrl = countryInfo ? getFlagUrl(countryInfo.code) : null;
 
   return (
     <>
@@ -102,12 +131,13 @@ function Plans() {
             </h1>
             <p className="plans-hero-subtitle">
               Fast, reliable connectivity across{" "}
-              {countryInfo && (
+              {flagUrl && (
                 <span className="flag-icon">
                   <img
-                    src={getFlagUrl(countryInfo.code)}
+                    src={flagUrl}
                     alt={`${countryInfo.name} flag`}
                     className="country-flag-img"
+                    onError={handleFlagError}
                   />
                 </span>
               )}{" "}
@@ -171,11 +201,12 @@ function Plans() {
         <div className="plans-container">
           <div className="plans-header">
             <h1 className="plans-title">
-              {countryInfo && (
+              {flagUrl && (
                 <img
-                  src={getFlagUrl(countryInfo.code)}
+                  src={flagUrl}
                   alt={`${countryInfo.name} flag`}
                   className="title-flag-img"
+                  onError={handleFlagError}
                 />
               )}{" "}
               {countryInfo ? countryInfo.name : "Global"}{" "}
@@ -225,12 +256,13 @@ function Plans() {
                       Featured
                     </div>
                   )}
-                  {countryInfo && (
+                  {flagUrl && (
                     <div className="plan-flag">
                       <img
-                        src={getFlagUrl(countryInfo.code)}
+                        src={flagUrl}
                         alt={`${countryInfo.name} flag`}
                         className="plan-flag-img"
+                        onError={handleFlagError}
                       />
                     </div>
                   )}
@@ -285,6 +317,7 @@ function Plans() {
                       backgroundColor: "#ad0fd8",
                       boxShadow: "0 8px 16px #ad0fd840",
                     }}
+                    onClick={() => handlePlanSelect(plan.id)}
                   >
                     Add to Cart
                   </button>
