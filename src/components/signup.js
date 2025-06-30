@@ -29,6 +29,7 @@ function Signup() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    let responseData = null;
 
     // Basic validation
     if (formData.password !== formData.password_confirmation) {
@@ -43,11 +44,7 @@ function Signup() {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST",
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
-        credentials: "include",
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -56,17 +53,23 @@ function Signup() {
         }),
       });
 
-      const data = await response.json();
-      console.log("Registration response:", data); // Add this to debug the response
+      let responseData;
+      try {
+        responseData = await response.json();
+        console.log("Registration response:", responseData);
+      } catch (jsonError) {
+        console.error("Error parsing JSON:", jsonError);
+        throw new Error("Invalid response from server");
+      }
 
       // Check if registration was successful based on the response data
-      if (data.status === "success" || data.token) {
-        if (data.token) {
+      if (responseData.status === "success" || responseData.token) {
+        if (responseData.token) {
           // Store the token in localStorage
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("token", responseData.token);
           // Store user data if needed
-          if (data.user) {
-            localStorage.setItem("user", JSON.stringify(data.user));
+          if (responseData.user) {
+            localStorage.setItem("user", JSON.stringify(responseData.user));
           }
           // Redirect to dashboard or home
           navigate("/");
@@ -78,17 +81,25 @@ function Signup() {
       } else {
         // If registration failed, throw an error with the message from the server
         throw new Error(
-          data.message || "Registration failed. Please try again."
+          responseData.message || "Registration failed. Please try again."
         );
       }
     } catch (err) {
       console.error("Registration error:", err);
+
       if (err.message.includes("Failed to fetch")) {
         setError(
-          "Cannot connect to the server. Please check if the backend server is running."
+          "Cannot connect to the server. Please check if the backend server is running and CORS is enabled."
         );
+      } else if (responseData && responseData.errors) {
+        // Handle validation errors
+        const errorMessages = Object.values(responseData.errors).flat();
+        setError(errorMessages.join(", "));
+      } else if (responseData && responseData.message) {
+        // Handle other server errors
+        setError(responseData.message);
       } else {
-        setError(err.message || "Failed to register. Please try again.");
+        setError("Failed to register. Please try again.");
       }
     } finally {
       setLoading(false);
