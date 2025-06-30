@@ -28,11 +28,11 @@ function Login() {
     setError(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:8000/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           email: formData.email,
@@ -41,9 +41,11 @@ function Login() {
       });
 
       // Check if response is JSON
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Server error - Expected JSON response but got HTML. Please check if the API server is running correctly.');
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error(
+          "Server error - Expected JSON response but got HTML. Please check if the API server is running correctly."
+        );
       }
 
       const data = await response.json();
@@ -54,22 +56,24 @@ function Login() {
 
       if (data.token) {
         // Store the token in localStorage
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         // Store user data if needed
         if (data.user) {
-          localStorage.setItem('user', JSON.stringify(data.user));
+          localStorage.setItem("user", JSON.stringify(data.user));
         }
         // Redirect to dashboard or home
-        navigate('/');
+        navigate("/");
       } else {
-        throw new Error('No token received from server');
+        throw new Error("No token received from server");
       }
     } catch (err) {
-      console.error('Login error:', err);
-      if (err.message.includes('Failed to fetch')) {
-        setError('Cannot connect to the server. Please check if the backend server is running.');
+      console.error("Login error:", err);
+      if (err.message.includes("Failed to fetch")) {
+        setError(
+          "Cannot connect to the server. Please check if the backend server is running."
+        );
       } else {
-        setError(err.message || 'Failed to login. Please try again.');
+        setError(err.message || "Failed to login. Please try again.");
       }
     } finally {
       setLoading(false);
