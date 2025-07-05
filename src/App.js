@@ -19,6 +19,7 @@ import Coverage from "./components/Coverage";
 import Countries from "./components/Countries";
 import HowEsimWorks from "./components/HowEsimWorks";
 import PlanDetails from "./components/PlanDetails";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -26,6 +27,15 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header />
+              <Profile />
+            </>
+          }
+        />
         <Route
           path="/countries"
           element={
