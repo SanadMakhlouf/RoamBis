@@ -319,9 +319,10 @@ function Plans() {
                     }}
                     onClick={() => handlePlanSelect(plan.id)}
                   >
-                    Add to Cart
+                    Buy Now
                   </button>
                 </div>
+              
               ))
             ) : (
               <div className="no-plans">

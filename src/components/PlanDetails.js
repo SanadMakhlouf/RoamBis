@@ -15,7 +15,8 @@ import {
   faCheck,
   faMinus,
   faPlus,
-  faList,
+  faCopy,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 const PlanDetails = () => {
@@ -293,224 +294,98 @@ const PlanDetails = () => {
 
   return (
     <div className="plan-details-page">
-      {/* Plans Sidebar */}
-      <div className="plans-sidebar">
-        <div className="sidebar-title">
-          <FontAwesomeIcon icon={faList} />
-          {flagUrl && (
-            <img
-              src={flagUrl}
-              alt={`${countryName} flag`}
-              className="country-flag"
-              onError={(e) => {
-                e.target.style.display = "none";
-              }}
-            />
-          )}
-          {countryName} Plans
+      <div className="order-steps">
+        <div className="step active">
+          <span className="step-check">✓</span>
+          Choose Plan
         </div>
-        {allPlans.map((p) => (
-          <div
-            key={p.id}
-            className={`sidebar-plan-card ${p.id === plan.id ? "active" : ""}`}
-            onClick={() => handlePlanSelect(p.id)}
-          >
-            <div className="sidebar-plan-name">{p.name}</div>
-            <div className="sidebar-plan-data">{p.data}</div>
-            <div className="sidebar-plan-price">
-              ${p.price} - {p.validity} Days
-            </div>
-          </div>
-        ))}
+        <div className="step">2. Review Order</div>
+        <div className="step">3. Confirm & Pay</div>
       </div>
 
-      {/* Main Content */}
       <div className="plan-details-main">
-        <div className="plan-details-container">
-          <div className="plan-details-header">
-            <div className="plan-title">
-              {flagUrl && (
-                <img
-                  src={flagUrl}
-                  alt={`${plan.countryName} flag`}
-                  className="country-flag"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                    console.warn(
-                      `Failed to load flag for country: ${plan.countryCode}`
-                    );
-                  }}
-                />
-              )}
-              <h1>{plan.name}</h1>
-            </div>
-            <p className="plan-subtitle">{plan.regions}</p>
-          </div>
+        <div className="shopping-cart-container">
+          <h2>Shopping Cart</h2>
 
-          <div className="plan-info-section">
-            <div className="plan-flag">
-              <div className="plan-title">
-                <h1>{plan.name}</h1>
-                <p>{plan.regions}</p>
-              </div>
-            </div>
+          <div className="cart-content">
+            <div className="cart-details">
+              <div className="esim-item">
+                <div className="esim-header">
+                  <FontAwesomeIcon icon={faGlobe} />
+                  <span>Global eSIM</span>
+                </div>
 
-            <div className="plan-highlights">
-              <div className="highlight-box">
-                <h2>{plan.data}</h2>
-                <p>High-Speed Data</p>
-              </div>
-              <div className="highlight-box">
-                <h2>{plan.validity}</h2>
-                <p>Days Validity</p>
-              </div>
-            </div>
-
-            <div className="plan-features">
-              <h3>What's Included</h3>
-              <div className="features-grid">
-                {plan.features.map((feature, index) => (
-                  <div className="feature-item" key={index}>
-                    <FontAwesomeIcon icon={feature.icon} />
-                    <span>{feature.text}</span>
+                <div className="esim-info">
+                  <div className="info-row">
+                    <span>Data Allowance</span>
+                    <span>{plan.data}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="plan-purchase-section">
-            <div className="plan-price">
-              <h2>${plan.price.toFixed(2)}</h2>
-              <p>One-time payment • ${plan.pricePerGB.toFixed(2)} per GB</p>
-            </div>
-
-            <div className="start-date-section">
-              <h3>Select Start Date</h3>
-              <div className="start-options">
-                <div
-                  className={`start-option ${
-                    startOption === "now" ? "selected" : ""
-                  }`}
-                  onClick={() => setStartOption("now")}
-                >
-                  <FontAwesomeIcon icon={faBolt} />
-                  <h4>Start Now</h4>
-                  <p>Immediate activation</p>
-                </div>
-                <div
-                  className={`start-option ${
-                    startOption === "later" ? "selected" : ""
-                  }`}
-                  onClick={() => setStartOption("later")}
-                >
-                  <FontAwesomeIcon icon={faCalendarAlt} />
-                  <h4>Start Later</h4>
-                  <p>Choose specific date</p>
+                  <div className="info-row">
+                    <span>Validity</span>
+                    <span>{plan.validity} Days</span>
+                  </div>
+                  <div className="info-row">
+                    <span>Starting Date</span>
+                    <span>
+                      {startOption === "later" ? specificDate : "Immediate"}
+                    </span>
+                  </div>
+                  <div className="info-row">
+                    <span>Item Total</span>
+                    <div className="price">
+                      <span className="original-price">
+                        ${(plan.price * 1.2).toFixed(2)}
+                      </span>
+                      <span className="final-price">
+                        ${plan.price.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {startOption === "later" && (
-                <div className="date-picker">
-                  <input
-                    type="date"
-                    value={specificDate}
-                    onChange={(e) => setSpecificDate(e.target.value)}
-                    min={new Date().toISOString().split("T")[0]}
-                  />
+            </div>
+
+            <div className="cart-summary">
+              <h3>Order Summary</h3>
+              <div className="plan-summary-header">
+                <img
+                  src={`https://flagcdn.com/${plan.countryCode.toLowerCase()}.svg`}
+                  alt={plan.country}
+                  className="country-flag"
+                />
+                <div className="plan-summary-info">
+                  <h4>{plan.country} eSIM</h4>
+                  <span>{plan.name}</span>
                 </div>
-              )}
-            </div>
-
-            <div className="quantity-section">
-              <h3>Quantity</h3>
-              <div className="quantity-selector">
-                <button
-                  className="quantity-btn"
-                  onClick={() => handleQuantityChange(-1)}
-                  disabled={quantity <= 1}
-                >
-                  <FontAwesomeIcon icon={faMinus} />
-                </button>
-                <span className="quantity-value">{quantity}</span>
-                <button
-                  className="quantity-btn"
-                  onClick={() => handleQuantityChange(1)}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
               </div>
-            </div>
+              <div className="summary-row total">
+                <span>Total (Taxes included)</span>
+                <span>${plan.price.toFixed(2)}</span>
+              </div>
 
-            <div className="total-section">
-              <span>Total:</span>
-              <span className="total-price">
-                ${(plan.price * quantity).toFixed(2)}
-              </span>
-            </div>
-
-            <div className="action-buttons">
-              <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                <FontAwesomeIcon icon={faShoppingCart} /> Add to Cart
+              <button className="checkout-btn" onClick={handleBuyNow}>
+                Proceed to Checkout
               </button>
-              <button className="buy-now-btn" onClick={handleBuyNow}>
-                <FontAwesomeIcon icon={faCreditCard} /> Buy Now
-              </button>
-            </div>
 
-            <div className="trust-section">
-              <p>Trusted by 500,000+ travelers</p>
-              <div className="ratings">
-                <div className="stars">★★★★★</div>
-                <span>4.9/5 (12,000+ reviews)</span>
-              </div>
-              <div className="trust-features">
-                <div className="trust-feature">
-                  <FontAwesomeIcon icon={faShieldAlt} /> Secure Payment
-                </div>
-                <div className="trust-feature">
-                  <FontAwesomeIcon icon={faCheck} /> 30-Day Refund
-                </div>
-              </div>
-            </div>
-          </div>
+              <div className="secure-checkout">
+                <FontAwesomeIcon icon={faShieldAlt} />
+                <span>SECURE CHECKOUT</span>
 
-          <div className="coverage-section">
-            <h2>Coverage Areas</h2>
-            <div className="coverage-grid">
-              {plan.coverage.map((country, index) => (
-                <div className="country-item" key={index}>
-                  <FontAwesomeIcon icon={faCheck} /> {country}
-                </div>
-              ))}
-            </div>
-            <button className="view-all-btn">
-              View all {plan.totalCountries}+ countries →
-            </button>
-          </div>
+                <p>Your payment is encrypted and processed securely.</p>
+              </div>
 
-          <div className="how-it-works-section">
-            <h2>How It Works</h2>
-            <div className="steps-container">
-              <div className="step-item">
-                <div className="step-icon purchase-icon">
-                  <FontAwesomeIcon icon={faCreditCard} />
+              <div className="trust-section">
+                <div className="trustpilot">
+                  <span>Excellent</span>
+                  <div className="stars">★★★★★</div>
+                  <img src="/trustpilot.png" alt="Trustpilot" />
                 </div>
-                <h3>1. Purchase Plan</h3>
-                <p>Complete your purchase and receive instant confirmation</p>
-              </div>
-              <div className="step-item">
-                <div className="step-icon scan-icon">
-                  <FontAwesomeIcon icon={faMobileAlt} />
+                <div className="terms">
+                  <span>Our </span>
+                  <a href="/terms">Terms of Service</a>
+                  <span> and </span>
+                  <a href="/privacy">Privacy Policy</a>
                 </div>
-                <h3>2. Scan QR Code</h3>
-                <p>Use your phone to scan the QR code we send you</p>
-              </div>
-              <div className="step-item">
-                <div className="step-icon connect-icon">
-                  <FontAwesomeIcon icon={faWifi} />
-                </div>
-                <h3>3. Connect Instantly</h3>
-                <p>Start using high-speed data immediately</p>
               </div>
             </div>
           </div>
