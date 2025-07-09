@@ -25,12 +25,12 @@ import About from "./components/About";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import ScrollToTop from "./components/ScrollToTop";
+import PolicyPage from "./components/PolicyPage";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -124,7 +124,26 @@ function App() {
           }
         />
         <Route path="/thanks" element={<ThankYou />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/contact"
+          element={
+            <>
+              <Header />
+              <Contact />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/policies"
+          element={
+            <>
+              <Header />
+              <PolicyPage />
+              <Footer />
+            </>
+          }
+        />
         <Route
           path="/"
           element={

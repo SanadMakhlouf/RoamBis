@@ -1,229 +1,82 @@
 .footer {
-  background: #170f27;
-  padding: 4rem 0 2rem;
+  background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4e 100%);
   color: white;
+  padding: 60px 20px 20px;
 }
 
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 4rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
 }
 
-.footer-brand {
-  max-width: 350px;
+.footer-section h3 {
+  color: #ad0fd8;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
-.footer-logo {
-  width: 180px;
-  margin-bottom: 1.5rem;
+.footer-section ul {
+  list-style: none;
+  padding: 0;
 }
 
-.footer-description {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+.footer-section ul li {
+  margin-bottom: 12px;
+}
+
+.footer-section ul li a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #ad0fd8;
 }
 
 .social-links {
   display: flex;
-  gap: 1rem;
+  gap: 15px;
 }
 
-.social-link {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(173, 15, 216, 0.1);
-  color: #ad0fd8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.social-links a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
   transition: all 0.3s ease;
 }
 
-.social-link:hover {
-  background: #ad0fd8;
-  color: white;
+.social-links a:hover {
+  color: #ad0fd8;
   transform: translateY(-3px);
 }
 
-.social-link svg {
-  width: 18px;
-  height: 18px;
-}
-
-.footer-links h4 {
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 1rem;
-}
-
-.footer-links a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: #ad0fd8;
-}
-
 .footer-bottom {
-  text-align: center;
-  padding-top: 2rem;
+  margin-top: 40px;
+  padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
 }
 
-.footer-bottom a {
-  color: #ad0fd8;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-bottom a:hover {
-  color: white;
-}
-
-@media (max-width: 1024px) {
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 20px 20px;
   }
 
-  .footer-brand {
-    grid-column: 1 / -1;
-    max-width: 100%;
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-section {
+    text-align: center;
   }
 
   .social-links {
     justify-content: center;
   }
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 3rem 0 2rem;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .footer-brand {
-    text-align: center;
-  }
-
-  .footer-links {
-    text-align: center;
-  }
-
-  .footer-links h4 {
-    margin-bottom: 1rem;
-  }
-
-  .footer-links li {
-    margin-bottom: 0.8rem;
-  }
-}
-
-/* Newsletter Form Styles */
-.newsletter-form {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 0.8rem 1.2rem;
-  border-radius: 25px;
-  border: 1px solid rgba(173, 15, 216, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-}
-
-.newsletter-input:focus {
-  outline: none;
-  border-color: #ad0fd8;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.newsletter-button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  border: none;
-  background: #ad0fd8;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.newsletter-button:hover {
-  background: #8a0bac;
-  transform: translateY(-2px);
-}
-
-@media (max-width: 480px) {
-  .newsletter-form {
-    flex-direction: column;
-  }
-
-  .newsletter-button {
-    width: 100%;
-  }
-}
-
-.footer-contact {
-  margin-top: 20px;
-}
-
-.footer-contact p {
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-contact i {
-  color: #ad0fd8;
-  font-size: 1.1rem;
-  width: 20px;
-  text-align: center;
-}
-
-.footer-links ul li a i {
-  margin-right: 8px;
-  color: #ad0fd8;
-}
-
-.footer-links ul li a:hover i {
-  color: white;
 }

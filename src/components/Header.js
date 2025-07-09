@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/Header.css";
 import logo from "../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
@@ -66,6 +66,9 @@ function Header() {
             </Link>
             <Link to="/about" onClick={() => setIsMenuOpen(false)}>
               About Us
+            </Link>
+            <Link to="/policies" onClick={() => setIsMenuOpen(false)}>
+              Legal
             </Link>
           </nav>
 

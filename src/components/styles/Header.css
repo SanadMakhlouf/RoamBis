@@ -8,6 +8,12 @@
   z-index: 1000;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
