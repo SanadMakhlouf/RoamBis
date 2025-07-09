@@ -28,7 +28,7 @@ function Hero() {
               <button className="btn-secondary">See It In Action</button>
             </div>
             <div className="hero-stats">
-              <span> <i className="fa-solid fa-globe"></i> 200+ Countries</span>
+              <span> <i className="fa-solid fa-globe"></i>190+ Countries</span>
               <span> <i className="fa-solid fa-bolt"></i> Instant Setup</span>
               <span> <i className="fa-solid fa-shield-halved"></i> Ultra Secure</span>
               

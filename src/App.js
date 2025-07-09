@@ -26,6 +26,7 @@ import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import PolicyPage from "./components/PolicyPage";
+import Blog from "./components/Blog";
 
 function App() {
   return (
@@ -140,6 +141,16 @@ function App() {
             <>
               <Header />
               <PolicyPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <>
+              <Header />
+              <Blog />
               <Footer />
             </>
           }
