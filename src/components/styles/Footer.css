@@ -199,3 +199,31 @@
     width: 100%;
   }
 }
+
+.footer-contact {
+  margin-top: 20px;
+}
+
+.footer-contact p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-contact i {
+  color: #ad0fd8;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.footer-links ul li a i {
+  margin-right: 8px;
+  color: #ad0fd8;
+}
+
+.footer-links ul li a:hover i {
+  color: white;
+}

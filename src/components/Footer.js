@@ -14,16 +14,28 @@ function Footer() {
               Stay connected anywhere in the world with our reliable eSIM
               technology and global data plans.
             </p>
+            <div className="footer-contact">
+              <p>
+                <i className="fas fa-location-dot"></i> 14 Albert Road,
+                Belvedere, London. DA17 5LJ
+              </p>
+              <p>
+                <i className="fas fa-envelope"></i> support@roambis.com
+              </p>
+              <p>
+                <i className="fab fa-whatsapp"></i> +44 7956 649223
+              </p>
+            </div>
           </div>
 
           <div className="footer-links">
-            <h4>Company</h4>
+            <h4>Quick Links</h4>
             <ul>
               <li>
-                <Link to="/about">About Us</Link>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/how-it-works">How It Works</Link>
+                <Link to="/about">About Us</Link>
               </li>
               <li>
                 <Link to="/coverage">Coverage</Link>
@@ -38,41 +50,77 @@ function Footer() {
             <h4>Support</h4>
             <ul>
               <li>
-                <Link to="/help">Help Center</Link>
-              </li>
-              <li>
                 <Link to="/faq">FAQs</Link>
               </li>
               <li>
                 <Link to="/contact">Contact Us</Link>
               </li>
               <li>
-                <Link to="/coverage">Coverage Map</Link>
+                <a
+                  href="https://wa.me/447956649223"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp Support
+                </a>
               </li>
             </ul>
           </div>
 
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>Follow Us</h4>
             <ul>
               <li>
-                <Link to="/guides">Travel Guides</Link>
+                <a
+                  href="https://uk.trustpilot.com/review/roambis.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fas fa-star"></i> Trustpilot
+                </a>
               </li>
               <li>
-                <Link to="/setup">eSIM Setup Guide</Link>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61573623737810"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-facebook"></i> Facebook
+                </a>
               </li>
               <li>
-                <Link to="/tips">Data Usage Tips</Link>
+                <a
+                  href="https://www.instagram.com/roambis_mobile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-instagram"></i> Instagram
+                </a>
               </li>
               <li>
-                <Link to="/alternatives">Roaming Alternatives</Link>
+                <a
+                  href="https://www.tiktok.com/@roambis_mobile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-tiktok"></i> TikTok
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://x.com/roambis_mobile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-x-twitter"></i> X
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>© 2024 ROAMbis. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ROAMbis. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -43,13 +43,13 @@ const Contact = () => {
           <p>Get instant support via WhatsApp</p>
           <div className="contact-actions">
             <a
-              href="https://wa.me/1234567890"
+              href="https://wa.me/447956649223"
               target="_blank"
               rel="noopener noreferrer"
               className="whatsapp-btn"
             >
               <i className="fab fa-whatsapp"></i>
-              Start Chat
+              Start Chat (+44 7956 649223)
             </a>
           </div>
         </div>
@@ -63,7 +63,7 @@ const Contact = () => {
           <div className="contact-actions">
             <a href="mailto:support@roambis.com" className="email-btn">
               <i className="fas fa-envelope"></i>
-              Send Email
+              support@roambis.com
             </a>
           </div>
         </div>
@@ -81,7 +81,7 @@ const Contact = () => {
             className="social-link trustpilot"
           >
             <i className="fas fa-star"></i>
-            
+            <span>Trustpilot</span>
           </a>
 
           <a
@@ -91,7 +91,7 @@ const Contact = () => {
             className="social-link facebook"
           >
             <i className="fab fa-facebook"></i>
-            
+            <span>Facebook</span>
           </a>
 
           <a
@@ -101,7 +101,7 @@ const Contact = () => {
             className="social-link instagram"
           >
             <i className="fab fa-instagram"></i>
-            
+            <span>Instagram</span>
           </a>
 
           <a
@@ -111,7 +111,7 @@ const Contact = () => {
             className="social-link tiktok"
           >
             <i className="fab fa-tiktok"></i>
-            
+            <span>TikTok</span>
           </a>
 
           <a
@@ -121,7 +121,7 @@ const Contact = () => {
             className="social-link twitter"
           >
             <i className="fab fa-x-twitter"></i>
-            
+            <span>X</span>
           </a>
         </div>
       </div>
