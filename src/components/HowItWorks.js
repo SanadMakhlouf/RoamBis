@@ -11,7 +11,9 @@ function HowItWorks() {
           <div className="step">
             <div className="step-number">1</div>
             <div className="step-content">
-              <div className="step-icon"><i className="fa-solid fa-mobile"></i></div>
+              <div className="step-icon">
+                <i className="fa-solid fa-mobile"></i>
+              </div>
               <h3>Choose Your Plan</h3>
               <p>
                 Select the perfect data plan for your destination and travel
@@ -19,22 +21,26 @@ function HowItWorks() {
               </p>
             </div>
           </div>
-          <div className="step-connector"></div>
+
           <div className="step">
             <div className="step-number">2</div>
             <div className="step-content">
-              <div className="step-icon"><i className="fa-solid fa-qrcode"></i></div>
+              <div className="step-icon">
+                <i className="fa-solid fa-qrcode"></i>
+              </div>
               <h3>Scan Your QR Code</h3>
               <p>
                 Download your eSIM instantly by scanning the QR code we provide.
               </p>
             </div>
           </div>
-          <div className="step-connector"></div>
+
           <div className="step">
             <div className="step-number">3</div>
             <div className="step-content">
-              <div className="step-icon"><i className="fa-solid fa-signal"></i></div>
+              <div className="step-icon">
+                <i className="fa-solid fa-signal"></i>
+              </div>
               <h3>Connect & Explore</h3>
               <p>
                 Start using your data immediately and explore without limits.
