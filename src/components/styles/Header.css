@@ -283,3 +283,47 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
+
+/* Styles pour Google Translate dans le header */
+#google_translate_element {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#google_translate_element .goog-te-gadget {
+  font-family: inherit;
+}
+
+#google_translate_element .goog-te-combo {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: transparent;
+  color: white !important;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  min-width: 120px;
+}
+
+#google_translate_element .goog-te-combo:hover {
+  border-color: #ad0fd8;
+  background-color: rgba(173, 15, 216, 0.1);
+}
+
+#google_translate_element .goog-te-combo option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  #google_translate_element {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  #google_translate_element .goog-te-combo {
+    width: 100%;
+    text-align: center;
+  }
+}

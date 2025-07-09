@@ -73,7 +73,14 @@ function Header() {
           </nav>
 
           <div className={`header-actions ${isMenuOpen ? "active" : ""}`}>
-            <span className="language">EN</span>
+            {/* Google Translate Widget avec icône */}
+            <div className="translate-wrapper">
+              <div className="translate-icon">
+                <i className="fas fa-globe"></i>
+              </div>
+              <div id="google_translate_element"></div>
+            </div>
+
             {isLoggedIn ? (
               <div className="user-menu">
                 <button
