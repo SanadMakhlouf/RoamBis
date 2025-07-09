@@ -228,46 +228,147 @@ const PlanDetails = () => {
     if (!plan || !countryCode) return;
 
     try {
-      // You can add your purchase API endpoint here
-      const purchaseData = {
-        plan_id: plan.id,
-        country_code: countryCode,
-        quantity: quantity,
-        start_option: startOption,
-        start_date: startOption === "later" ? specificDate : null,
-        total_price: (plan.price * quantity).toFixed(2),
+      // Check if user is authenticated
+      const token = localStorage.getItem("bearerToken");
+
+      if (!token) {
+        // User is not logged in, redirect to login page
+        alert("Please login or register to complete your purchase");
+        // Save current path to redirect back after login
+        localStorage.setItem("redirectAfterLogin", window.location.pathname);
+        navigate("/login");
+        return;
+      }
+
+      // First, fetch all countries and find the ID
+      const countryResponse = await fetch(
+        "http://127.0.0.1:8000/api/countries",
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      if (!countryResponse.ok) {
+        throw new Error(`Failed to fetch countries: ${countryResponse.status}`);
+      }
+
+      const responseData = await countryResponse.json();
+      console.log("Countries API Response:", responseData);
+
+      // Handle different response formats
+      let countriesData = [];
+      if (Array.isArray(responseData)) {
+        countriesData = responseData;
+      } else if (responseData.data && Array.isArray(responseData.data)) {
+        countriesData = responseData.data;
+      } else if (
+        responseData.countries &&
+        Array.isArray(responseData.countries)
+      ) {
+        countriesData = responseData.countries;
+      } else {
+        console.error("Unexpected countries response format:", responseData);
+        throw new Error("Invalid countries data format received from server");
+      }
+
+      // Find the country by code (case insensitive)
+      const country = countriesData.find(
+        (c) => c.code.toLowerCase() === countryCode.toLowerCase()
+      );
+
+      console.log("Found country:", country);
+      console.log("Looking for country code:", countryCode);
+
+      if (!country || !country.id) {
+        throw new Error(`Could not find country with code: ${countryCode}`);
+      }
+
+      // Prepare order data with the country ID
+      const orderData = {
+        plan_id: parseInt(plan.id),
+        country_id: parseInt(country.id), // Use the numeric ID from filtered country
+        payment: {
+          method: "card",
+        },
       };
 
-      console.log("Processing purchase:", purchaseData);
+      console.log("Sending order with data:", orderData);
+      console.log("Using authorization token:", token);
 
-      // Example API call (uncomment and modify when you have the purchase API endpoint)
-      /*
-      const response = await fetch('http://127.0.0.1:8000/api/purchase/direct', {
-        method: 'POST',
+      // Create the order
+      const response = await fetch("http://127.0.0.1:8000/api/orders", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: token,
         },
-        body: JSON.stringify(purchaseData)
+        body: JSON.stringify(orderData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to process purchase');
+      // Log the response status and headers
+      console.log("Response status:", response.status);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries())
+      );
+
+      // Check if the response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        // If not JSON, get the text content for debugging
+        const textContent = await response.text();
+        console.error("Received non-JSON response:", textContent);
+        throw new Error(
+          `Server returned non-JSON response: ${response.status}`
+        );
       }
 
       const result = await response.json();
-      if (result.status === 'success') {
-        navigate('/checkout/confirmation');
-      }
-      */
+      console.log("Order creation successful:", result);
 
-      // For now, just show an alert
-      alert(
-        `Processing purchase for ${quantity} ${plan.name} plan(s) for ${plan.countryName}!`
-      );
-      navigate("/checkout");
+      if (response.ok) {
+        // Check if we have a checkout URL
+        if (result.checkout_url) {
+          // Store success redirect URL in localStorage
+          localStorage.setItem("paymentSuccessRedirect", "/thanks");
+          // Redirect to Stripe checkout
+          window.location.href = result.checkout_url;
+        } else if (result.order && result.order.id) {
+          // Store order ID if needed
+          localStorage.setItem("currentOrderId", result.order.id);
+          // Navigate to thank you page
+          navigate("/thanks");
+        } else {
+          throw new Error("No checkout URL or order ID received");
+        }
+      } else {
+        // Handle different types of errors
+        if (response.status === 401) {
+          // Token expired or invalid
+          localStorage.removeItem("bearerToken");
+          localStorage.removeItem("userId");
+          localStorage.removeItem("userRole");
+          localStorage.removeItem("userName");
+          localStorage.removeItem("userEmail");
+          alert("Your session has expired. Please login again.");
+          localStorage.setItem("redirectAfterLogin", window.location.pathname);
+          navigate("/login");
+          return;
+        }
+
+        // For other error status codes, try to get error details from response
+        throw new Error(
+          result.message || `Failed to create order: ${response.status}`
+        );
+      }
     } catch (err) {
       console.error("Error processing purchase:", err);
-      alert("Failed to process purchase. Please try again.");
+      // Show more specific error message to user
+      alert(err.message || "Failed to process purchase. Please try again.");
     }
   };
 

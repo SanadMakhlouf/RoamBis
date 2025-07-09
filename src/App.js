@@ -20,6 +20,7 @@ import Countries from "./components/Countries";
 import HowEsimWorks from "./components/HowEsimWorks";
 import PlanDetails from "./components/PlanDetails";
 import Profile from "./components/Profile";
+import ThankYou from "./components/ThankYou";
 
 function App() {
   return (
@@ -96,6 +97,7 @@ function App() {
             </>
           }
         />
+        <Route path="/thanks" element={<ThankYou />} />
         <Route
           path="/"
           element={

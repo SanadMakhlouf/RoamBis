@@ -65,12 +65,22 @@ function Signup() {
       // Check if registration was successful based on the response data
       if (responseData.status === "success" || responseData.token) {
         if (responseData.token) {
-          // Store the token in localStorage
-          localStorage.setItem("token", responseData.token);
-          // Store user data if needed
+          // Store only the bearer token format for API calls
+          localStorage.setItem("bearerToken", `Bearer ${responseData.token}`);
+
+          // Store user data
           if (responseData.user) {
-            localStorage.setItem("user", JSON.stringify(responseData.user));
+            // Store individual user fields for easier access
+            localStorage.setItem("userId", responseData.user.id);
+            localStorage.setItem("userRole", responseData.user.role);
+            localStorage.setItem("userName", responseData.user.name);
+            localStorage.setItem("userEmail", responseData.user.email);
           }
+
+          console.log("Stored user data:", {
+            user: responseData.user,
+          });
+
           // Redirect to dashboard or home
           navigate("/");
         } else {

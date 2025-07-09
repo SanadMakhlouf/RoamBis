@@ -48,23 +48,38 @@ function Login() {
         );
       }
 
-      const data = await response.json();
+      const responseData = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || `Login failed (${response.status})`);
-      }
+      // Check if login was successful based on the response data
+      if (responseData.status === "success" || responseData.token) {
+        if (responseData.token) {
+          // Store only the bearer token format for API calls
+          localStorage.setItem("bearerToken", `Bearer ${responseData.token}`);
 
-      if (data.token) {
-        // Store the token in localStorage
-        localStorage.setItem("token", data.token);
-        // Store user data if needed
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
+          // Store user data
+          if (responseData.user) {
+            // Store individual user fields for easier access
+            localStorage.setItem("userId", responseData.user.id);
+            localStorage.setItem("userRole", responseData.user.role);
+            localStorage.setItem("userName", responseData.user.name);
+            localStorage.setItem("userEmail", responseData.user.email);
+          }
+
+          console.log("Stored user data:", {
+            user: responseData.user,
+          });
+
+          // Redirect to dashboard or home
+          navigate("/");
+        } else {
+          // If login failed but status is success, show error
+          throw new Error("Login failed - no token received");
         }
-        // Redirect to dashboard or home
-        navigate("/");
       } else {
-        throw new Error("No token received from server");
+        // If login failed, throw an error with the message from the server
+        throw new Error(
+          responseData.message || "Login failed. Please try again."
+        );
       }
     } catch (err) {
       console.error("Login error:", err);
