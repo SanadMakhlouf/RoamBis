@@ -58,12 +58,15 @@ function Header() {
             <Link to="/coverage" onClick={() => setIsMenuOpen(false)}>
               Coverage
             </Link>
-            <a href="#support" onClick={() => setIsMenuOpen(false)}>
-              Support
-            </a>
+            <Link to="/faq" onClick={() => setIsMenuOpen(false)}>
+              FAQ
+            </Link>
+            <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
+              Contact Us
+            </Link>
             <Link to="/about" onClick={() => setIsMenuOpen(false)}>
               About Us
-              </Link>
+            </Link>
           </nav>
 
           <div className={`header-actions ${isMenuOpen ? "active" : ""}`}>
