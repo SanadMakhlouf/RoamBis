@@ -9,6 +9,64 @@ const Profile = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 6; // Show 6 orders per page (3 rows of 2)
 
+  // Add state for personal info
+  const [personalInfo, setPersonalInfo] = useState({
+    name: localStorage.getItem("userName") || "",
+    email: localStorage.getItem("userEmail") || "",
+    phone: localStorage.getItem("userPhone") || "",
+    address: localStorage.getItem("userAddress") || "",
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handle save personal info
+  const handleSavePersonalInfo = async () => {
+    try {
+      setSaveLoading(true);
+      setSaveError(null);
+      const token = localStorage.getItem("bearerToken");
+
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const response = await fetch("http://127.0.0.1:8000/api/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(personalInfo),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update profile");
+      }
+
+      // Update localStorage
+      localStorage.setItem("userName", personalInfo.name);
+      localStorage.setItem("userEmail", personalInfo.email);
+      localStorage.setItem("userPhone", personalInfo.phone);
+      localStorage.setItem("userAddress", personalInfo.address);
+
+      setIsEditing(false);
+    } catch (err) {
+      setSaveError(err.message);
+    } finally {
+      setSaveLoading(false);
+    }
+  };
+
   // Fetch orders from API
   useEffect(() => {
     const fetchOrders = async () => {
@@ -100,21 +158,92 @@ const Profile = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "personal":
-        const userData = {
-          name: localStorage.getItem("userName") || "User",
-          email: localStorage.getItem("userEmail") || "No email provided",
-        };
         return (
           <div className="profile-section user-info">
-            <h2>Personal Information</h2>
+            <div className="section-header">
+              <h2>Personal Information</h2>
+              {!isEditing && (
+                <button className="edit-btn" onClick={() => setIsEditing(true)}>
+                  Edit Profile
+                </button>
+              )}
+            </div>
             <div className="user-info-content">
               <div className="user-details">
-                <p>
-                  <strong>Name:</strong> {userData.name}
-                </p>
-                <p>
-                  <strong>Email:</strong> {userData.email}
-                </p>
+                <div className="input-group">
+                  <label>Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={personalInfo.name}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={personalInfo.email}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Phone:</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={personalInfo.phone}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Address:</label>
+                  <textarea
+                    name="address"
+                    value={personalInfo.address}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    placeholder="Enter your address"
+                    rows="3"
+                  />
+                </div>
+                {isEditing && (
+                  <div className="button-group">
+                    <button
+                      className="cancel-btn"
+                      onClick={() => {
+                        setIsEditing(false);
+                        setPersonalInfo({
+                          name: localStorage.getItem("userName") || "",
+                          email: localStorage.getItem("userEmail") || "",
+                          phone: localStorage.getItem("userPhone") || "",
+                          address: localStorage.getItem("userAddress") || "",
+                        });
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="save-btn"
+                      onClick={handleSavePersonalInfo}
+                      disabled={saveLoading}
+                    >
+                      {saveLoading ? "Saving..." : "Save Changes"}
+                    </button>
+                  </div>
+                )}
+                {saveError && (
+                  <div className="error-message">
+                    Failed to save changes: {saveError}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -169,7 +298,6 @@ const Profile = () => {
                           <strong>Validity:</strong> {order.plan.validity_days}{" "}
                           Days
                         </p>
-                     
                       </div>
                     </div>
                   ))}
