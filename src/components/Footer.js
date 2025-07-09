@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/Footer.css";
 import logo from "../assets/logo.png";
 
 function Footer() {
   return (
     <footer className="footer">
-      <div className="footer-content">
+      <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
             <img src={logo} alt="ROAMbis" className="footer-logo" />
@@ -19,16 +20,16 @@ function Footer() {
             <h4>Company</h4>
             <ul>
               <li>
-                <a href="/about">About Us</a>
+                <Link to="/about">About Us</Link>
               </li>
               <li>
-                <a href="/careers">Careers</a>
+                <Link to="/how-it-works">How It Works</Link>
               </li>
               <li>
-                <a href="/press">Press</a>
+                <Link to="/coverage">Coverage</Link>
               </li>
               <li>
-                <a href="/blog">Blog</a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </div>
@@ -37,16 +38,16 @@ function Footer() {
             <h4>Support</h4>
             <ul>
               <li>
-                <a href="/help">Help Center</a>
+                <Link to="/help">Help Center</Link>
               </li>
               <li>
-                <a href="/contact">Contact Us</a>
+                <Link to="/contact">Contact Us</Link>
               </li>
               <li>
-                <a href="/compatibility">Device Compatibility</a>
+                <Link to="/compatibility">Device Compatibility</Link>
               </li>
               <li>
-                <a href="/coverage">Coverage Map</a>
+                <Link to="/coverage">Coverage Map</Link>
               </li>
             </ul>
           </div>
@@ -55,16 +56,16 @@ function Footer() {
             <h4>Resources</h4>
             <ul>
               <li>
-                <a href="/guides">Travel Guides</a>
+                <Link to="/guides">Travel Guides</Link>
               </li>
               <li>
-                <a href="/setup">eSIM Setup Guide</a>
+                <Link to="/setup">eSIM Setup Guide</Link>
               </li>
               <li>
-                <a href="/tips">Data Usage Tips</a>
+                <Link to="/tips">Data Usage Tips</Link>
               </li>
               <li>
-                <a href="/alternatives">Roaming Alternatives</a>
+                <Link to="/alternatives">Roaming Alternatives</Link>
               </li>
             </ul>
           </div>

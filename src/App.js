@@ -21,6 +21,7 @@ import HowEsimWorks from "./components/HowEsimWorks";
 import PlanDetails from "./components/PlanDetails";
 import Profile from "./components/Profile";
 import ThankYou from "./components/ThankYou";
+import About from "./components/About";
 
 function App() {
   return (
@@ -34,6 +35,16 @@ function App() {
             <>
               <Header />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Header />
+              <About />
+              <Footer />
             </>
           }
         />

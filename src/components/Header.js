@@ -61,6 +61,9 @@ function Header() {
             <a href="#support" onClick={() => setIsMenuOpen(false)}>
               Support
             </a>
+            <Link to="/about" onClick={() => setIsMenuOpen(false)}>
+              About Us
+              </Link>
           </nav>
 
           <div className={`header-actions ${isMenuOpen ? "active" : ""}`}>

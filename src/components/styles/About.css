@@ -1,0 +1,65 @@
+.about-page {
+  padding-top: 80px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4e 100%);
+  color: white;
+}
+
+.about-hero {
+  padding: 60px 0;
+  text-align: center;
+  background: rgba(173, 15, 216, 0.1);
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #ad0fd8, #d81784);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-content {
+  padding: 60px 0;
+}
+
+.about-story {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-story p {
+  margin-bottom: 24px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-story .lead {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 32px;
+}
+
+.about-story .closing {
+  font-style: italic;
+  color: #ad0fd8;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .about-story .lead {
+    font-size: 1.2rem;
+  }
+
+  .about-story p {
+    font-size: 1rem;
+  }
+}
