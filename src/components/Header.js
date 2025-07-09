@@ -1,22 +1,30 @@
 import React, { useState } from "react";
 import "./styles/Header.css";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   // Check if user is logged in
-  const isLoggedIn = localStorage.getItem("token") !== null;
-  const userData = localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null;
+  const isLoggedIn = localStorage.getItem("bearerToken") !== null;
+  const userName = localStorage.getItem("userName");
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.reload();
+    // Clear all auth-related items
+    localStorage.removeItem("bearerToken");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+
+    // Close the user menu
+    setIsUserMenuOpen(false);
+
+    // Navigate to home page
+    navigate("/");
   };
 
   return (
@@ -64,7 +72,7 @@ function Header() {
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 >
                   <i className="fas fa-user"></i>
-                  {userData?.name || "User"}
+                  <span className="user-name">{userName || "User"}</span>
                   <i
                     className={`fas fa-chevron-down ${
                       isUserMenuOpen ? "rotate" : ""
@@ -73,10 +81,26 @@ function Header() {
                 </button>
                 {isUserMenuOpen && (
                   <div className="user-dropdown">
-                    <Link to="/profile">Profile</Link>
-                    <Link to="/orders">My Orders</Link>
-                    <Link to="/settings">Settings</Link>
-                    <button onClick={handleLogout}>Logout</button>
+                    <Link
+                      to="/profile"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <i className="fas fa-user-circle"></i> Profile
+                    </Link>
+                    <Link
+                      to="/profile"
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        document
+                          .querySelector('[data-section="orders"]')
+                          ?.click();
+                      }}
+                    >
+                      <i className="fas fa-shopping-bag"></i> My Orders
+                    </Link>
+                    <button onClick={handleLogout} className="logout-btn">
+                      <i className="fas fa-sign-out-alt"></i> Logout
+                    </button>
                   </div>
                 )}
               </div>

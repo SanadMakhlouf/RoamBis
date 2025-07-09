@@ -49,37 +49,46 @@ function Login() {
       }
 
       const responseData = await response.json();
+      console.log("Login response:", responseData);
 
-      // Check if login was successful based on the response data
-      if (responseData.status === "success" || responseData.token) {
-        if (responseData.token) {
-          // Store only the bearer token format for API calls
-          localStorage.setItem("bearerToken", `Bearer ${responseData.token}`);
-
-          // Store user data
-          if (responseData.user) {
-            // Store individual user fields for easier access
-            localStorage.setItem("userId", responseData.user.id);
-            localStorage.setItem("userRole", responseData.user.role);
-            localStorage.setItem("userName", responseData.user.name);
-            localStorage.setItem("userEmail", responseData.user.email);
-          }
-
-          console.log("Stored user data:", {
-            user: responseData.user,
-          });
-
-          // Redirect to dashboard or home
-          navigate("/");
-        } else {
-          // If login failed but status is success, show error
-          throw new Error("Login failed - no token received");
-        }
-      } else {
-        // If login failed, throw an error with the message from the server
+      if (!response.ok) {
         throw new Error(
           responseData.message || "Login failed. Please try again."
         );
+      }
+
+      // Check if we have a token in the response
+      if (responseData.token) {
+        // Store only the bearer token format for API calls
+        localStorage.setItem("bearerToken", `Bearer ${responseData.token}`);
+
+        // Store user data
+        if (responseData.user) {
+          // Store individual user fields for easier access
+          localStorage.setItem("userId", responseData.user.id);
+          localStorage.setItem("userRole", responseData.user.role);
+          localStorage.setItem("userName", responseData.user.name);
+          localStorage.setItem("userEmail", responseData.user.email);
+        }
+
+        console.log("Stored user data:", {
+          user: responseData.user,
+        });
+
+        // Check if there's a redirect URL stored
+        const redirectUrl = localStorage.getItem("redirectAfterLogin");
+        if (redirectUrl) {
+          // Clear the stored redirect URL
+          localStorage.removeItem("redirectAfterLogin");
+          // Redirect to the stored URL
+          navigate(redirectUrl);
+        } else {
+          // If no redirect URL, go to home
+          navigate("/");
+        }
+      } else {
+        // If no token in response
+        throw new Error("Login failed - no token received");
       }
     } catch (err) {
       console.error("Login error:", err);

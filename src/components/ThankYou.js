@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckCircle,
@@ -9,6 +9,10 @@ import {
 import "./styles/ThankYou.css";
 
 const ThankYou = () => {
+  const [searchParams] = useSearchParams();
+  const orderId = searchParams.get("order_id");
+  const sessionId = searchParams.get("session_id");
+
   return (
     <div className="thank-you-container">
       <div className="thank-you-card">

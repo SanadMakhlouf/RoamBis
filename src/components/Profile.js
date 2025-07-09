@@ -1,154 +1,193 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/Profile.css";
-
-// Mock data for user profile
-const mockUserData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  phone: "+1 234 567 8900",
-  location: "New York, USA",
-  profilePicture: "https://via.placeholder.com/150",
-};
-
-// Mock data for orders
-const mockOrders = [
-  {
-    id: "ORD001",
-    date: "2024-03-15",
-    destination: "France",
-    plan: "Europe Travel eSIM",
-    status: "Active",
-    amount: "$29.99",
-  },
-  {
-    id: "ORD002",
-    date: "2024-02-28",
-    destination: "Spain",
-    plan: "Premium Data Pack",
-    status: "Completed",
-    amount: "$39.99",
-  },
-  {
-    id: "ORD003",
-    date: "2024-01-15",
-    destination: "Italy",
-    plan: "Europe Unlimited",
-    status: "Expired",
-    amount: "$49.99",
-  },
-];
-
-// Mock data for payment methods
-const mockPaymentMethods = [
-  {
-    id: "PAY001",
-    type: "Credit Card",
-    last4: "4242",
-    expiryDate: "12/25",
-    isDefault: true,
-  },
-  {
-    id: "PAY002",
-    type: "PayPal",
-    email: "john.doe@example.com",
-    isDefault: false,
-  },
-];
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("personal");
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 6; // Show 6 orders per page (3 rows of 2)
+
+  // Fetch orders from API
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem("bearerToken");
+
+        if (!token) {
+          throw new Error("No authentication token found");
+        }
+
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/orders?page=${currentPage}`,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: token,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch orders: ${response.status}`);
+        }
+
+        const result = await response.json();
+        setOrders(result.data || []);
+      } catch (err) {
+        console.error("Error fetching orders:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (activeSection === "orders") {
+      fetchOrders();
+    }
+  }, [activeSection, currentPage]);
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const getStatusClass = (status) => {
+    switch (status.toLowerCase()) {
+      case "completed":
+        return "completed";
+      case "pending":
+        return "pending";
+      case "active":
+        return "active";
+      case "expired":
+        return "expired";
+      default:
+        return "";
+    }
+  };
+
+  const renderPagination = (totalPages) => {
+    return (
+      <div className="pagination">
+        <button
+          className="pagination-btn"
+          onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+          disabled={currentPage === 1}
+        >
+          <i className="fas fa-chevron-left"></i> Previous
+        </button>
+        <span className="page-info">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="pagination-btn"
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next <i className="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    );
+  };
 
   const renderContent = () => {
     switch (activeSection) {
       case "personal":
+        const userData = {
+          name: localStorage.getItem("userName") || "User",
+          email: localStorage.getItem("userEmail") || "No email provided",
+        };
         return (
           <div className="profile-section user-info">
             <h2>Personal Information</h2>
             <div className="user-info-content">
-              <img
-                src={mockUserData.profilePicture}
-                alt="Profile"
-                className="profile-picture"
-              />
               <div className="user-details">
                 <p>
-                  <strong>Name:</strong> {mockUserData.name}
+                  <strong>Name:</strong> {userData.name}
                 </p>
                 <p>
-                  <strong>Email:</strong> {mockUserData.email}
-                </p>
-                <p>
-                  <strong>Phone:</strong> {mockUserData.phone}
-                </p>
-                <p>
-                  <strong>Location:</strong> {mockUserData.location}
+                  <strong>Email:</strong> {userData.email}
                 </p>
               </div>
             </div>
           </div>
         );
+
       case "orders":
+        if (loading) {
+          return <div className="loading">Loading orders...</div>;
+        }
+
+        if (error) {
+          return <div className="error-message">{error}</div>;
+        }
+
         return (
           <div className="profile-section orders">
             <h2>My Orders</h2>
-            <div className="orders-list">
-              {mockOrders.map((order) => (
-                <div key={order.id} className="order-card">
-                  <div className="order-header">
-                    <span className="order-id">Order #{order.id}</span>
-                    <span
-                      className={`order-status ${order.status.toLowerCase()}`}
-                    >
-                      {order.status}
-                    </span>
-                  </div>
-                  <div className="order-details">
-                    <p>
-                      <strong>Date:</strong> {order.date}
-                    </p>
-                    <p>
-                      <strong>Destination:</strong> {order.destination}
-                    </p>
-                    <p>
-                      <strong>Plan:</strong> {order.plan}
-                    </p>
-                    <p>
-                      <strong>Amount:</strong> {order.amount}
-                    </p>
-                  </div>
+            {orders.length === 0 ? (
+              <p>No orders found.</p>
+            ) : (
+              <>
+                <div className="orders-grid">
+                  {orders.map((order) => (
+                    <div key={order.id} className="order-card">
+                      <div className="order-header">
+                        <span className="order-id">Order #{order.id}</span>
+                        <span
+                          className={`order-status ${getStatusClass(
+                            order.status
+                          )}`}
+                        >
+                          {order.status}
+                        </span>
+                      </div>
+                      <div className="order-details">
+                        <p>
+                          <strong>Date:</strong> {formatDate(order.created_at)}
+                        </p>
+                        <p>
+                          <strong>Destination:</strong> {order.country.name}
+                        </p>
+                        <p>
+                          <strong>Plan:</strong> {order.plan.name}
+                        </p>
+                        <p>
+                          <strong>Amount:</strong> ${order.price}
+                        </p>
+                        <p>
+                          <strong>Data:</strong> {order.plan.data_amount}GB
+                        </p>
+                        <p>
+                          <strong>Validity:</strong> {order.plan.validity_days}{" "}
+                          Days
+                        </p>
+                     
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+                {renderPagination(Math.ceil(orders.length / ordersPerPage))}
+              </>
+            )}
           </div>
         );
+
       case "payments":
         return (
           <div className="profile-section payment-methods">
             <h2>Payment Methods</h2>
-            <div className="payment-methods-list">
-              {mockPaymentMethods.map((payment) => (
-                <div key={payment.id} className="payment-card">
-                  <div className="payment-type">
-                    {payment.type}
-                    {payment.isDefault && (
-                      <span className="default-badge">Default</span>
-                    )}
-                  </div>
-                  <div className="payment-details">
-                    {payment.type === "Credit Card" ? (
-                      <>
-                        <p>**** **** **** {payment.last4}</p>
-                        <p>Expires: {payment.expiryDate}</p>
-                      </>
-                    ) : (
-                      <p>{payment.email}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p>Payment methods management coming soon.</p>
           </div>
         );
+
       default:
         return null;
     }
@@ -158,12 +197,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="profile-sidebar">
         <div className="sidebar-header">
-          <img
-            src={mockUserData.profilePicture}
-            alt="Profile"
-            className="sidebar-profile-picture"
-          />
-          <h3>{mockUserData.name}</h3>
+          <h3>{localStorage.getItem("userName") || "User Profile"}</h3>
         </div>
         <nav className="sidebar-nav">
           <button

@@ -233,7 +233,9 @@ const PlanDetails = () => {
 
       if (!token) {
         // User is not logged in, redirect to login page
-        alert("Please login or register to complete your purchase");
+        alert(
+          "Please log in to complete your purchase. You will be redirected back here after logging in."
+        );
         // Save current path to redirect back after login
         localStorage.setItem("redirectAfterLogin", window.location.pathname);
         navigate("/login");
@@ -333,15 +335,16 @@ const PlanDetails = () => {
       if (response.ok) {
         // Check if we have a checkout URL
         if (result.checkout_url) {
-          // Store success redirect URL in localStorage
-          localStorage.setItem("paymentSuccessRedirect", "/thanks");
+          // Store success redirect URL in localStorage with order ID
+          localStorage.setItem(
+            "paymentSuccessRedirect",
+            `/thanks?order_id=${result.order.id}`
+          );
           // Redirect to Stripe checkout
           window.location.href = result.checkout_url;
         } else if (result.order && result.order.id) {
-          // Store order ID if needed
-          localStorage.setItem("currentOrderId", result.order.id);
-          // Navigate to thank you page
-          navigate("/thanks");
+          // Navigate to thank you page with order ID
+          navigate(`/thanks?order_id=${result.order.id}`);
         } else {
           throw new Error("No checkout URL or order ID received");
         }
