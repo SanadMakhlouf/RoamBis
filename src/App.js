@@ -22,10 +22,15 @@ import PlanDetails from "./components/PlanDetails";
 import Profile from "./components/Profile";
 import ThankYou from "./components/ThankYou";
 import About from "./components/About";
+import FAQ from "./components/FAQ";
+import Contact from "./components/Contact";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
+      <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -44,6 +49,16 @@ function App() {
             <>
               <Header />
               <About />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/faq"
+          element={
+            <>
+              <Header />
+              <FAQ />
               <Footer />
             </>
           }
@@ -109,6 +124,7 @@ function App() {
           }
         />
         <Route path="/thanks" element={<ThankYou />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="/"
           element={

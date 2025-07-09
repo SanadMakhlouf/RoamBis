@@ -41,10 +41,10 @@ function Footer() {
                 <Link to="/help">Help Center</Link>
               </li>
               <li>
-                <Link to="/contact">Contact Us</Link>
+                <Link to="/faq">FAQs</Link>
               </li>
               <li>
-                <Link to="/compatibility">Device Compatibility</Link>
+                <Link to="/contact">Contact Us</Link>
               </li>
               <li>
                 <Link to="/coverage">Coverage Map</Link>

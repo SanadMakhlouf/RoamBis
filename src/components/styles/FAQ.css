@@ -1,0 +1,263 @@
+.faq-container {
+  padding: 80px 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4e 100%);
+  color: white;
+}
+
+.faq-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.faq-content h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.faq-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-search {
+  margin-bottom: 50px;
+}
+
+.search-bar {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 15px 20px 15px 50px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-bar input:focus {
+  border-color: #ad0fd8;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(173, 15, 216, 0.3);
+}
+
+.search-bar i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+}
+
+.faq-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.faq-category {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  background: #ad0fd8;
+  color: white;
+}
+
+.category-header i {
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.category-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.faq-items {
+  padding: 10px 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+.faq-question h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.faq-question i {
+  color: #ad0fd8;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.faq-answer p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 30px;
+}
+
+.faq-item.expanded .faq-question h3 {
+  color: #ad0fd8;
+}
+
+.faq-item.expanded .faq-question i {
+  transform: rotate(180deg);
+}
+
+.faq-item.expanded .faq-answer {
+  max-height: 500px;
+  padding: 20px 0;
+}
+
+.faq-item:hover .faq-question h3 {
+  color: #ad0fd8;
+}
+
+.faq-contact {
+  margin-top: 60px;
+  text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.faq-contact h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.faq-contact p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-btn i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.email-btn {
+  background-color: #ad0fd8;
+  color: white;
+}
+
+.email-btn:hover {
+  background-color: #c412f3;
+  transform: translateY(-3px);
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background-color: #20bd5a;
+  transform: translateY(-3px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .faq-container {
+    padding: 60px 15px;
+  }
+
+  .faq-content h1 {
+    font-size: 2rem;
+  }
+
+  .category-header {
+    padding: 15px 20px;
+  }
+
+  .faq-question {
+    padding: 15px 20px;
+  }
+
+  .faq-answer p {
+    padding: 0 20px;
+  }
+
+  .contact-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
