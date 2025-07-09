@@ -13,48 +13,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <title>ROAMbis</title>
-    <style>
-      /* Style pour le widget Google Translate */
-      .goog-te-banner-frame {
-        display: none !important;
-      }
-      body {
-        top: 0 !important;
-      }
-      .goog-te-gadget {
-        color: transparent !important;
-      }
-      .goog-te-gadget .goog-te-combo {
-        color: black !important;
-        padding: 8px !important;
-        border-radius: 4px !important;
-        border: 1px solid #ccc !important;
-        background-color: white !important;
-        cursor: pointer !important;
-      }
-      /* Cache le logo Google */
-      .goog-logo-link {
-        display: none !important;
-      }
-      .goog-te-gadget span {
-        display: none !important;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!-- Widget Google Translate -->
-    <div id="google_translate_element"></div>
-    <!-- Script Google Translate -->
     <script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement(
           {
             pageLanguage: "en",
-            includedLanguages: "en,fr", // Uniquement anglais et français
+            includedLanguages: "en,fr",
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
           },
           "google_translate_element"
         );
@@ -64,5 +29,37 @@
       type="text/javascript"
       src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
     ></script>
+    <style>
+      .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+      }
+      body {
+        top: 0px !important;
+      }
+      .goog-te-gadget {
+        height: 40px;
+        position: relative;
+      }
+      .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        line-height: 40px;
+        text-align: center;
+      }
+      .goog-te-gadget-simple > span > a > span {
+        display: none;
+      }
+      .goog-te-combo {
+        background: transparent;
+        border: none;
+        color: transparent;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
   </body>
 </html>

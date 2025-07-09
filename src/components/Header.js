@@ -73,11 +73,30 @@ function Header() {
           </nav>
 
           <div className={`header-actions ${isMenuOpen ? "active" : ""}`}>
-            {/* Google Translate Widget avec icône */}
+            {/* Google Translate Widget */}
             <div className="translate-wrapper">
-              <div className="translate-icon">
+              <button
+                className="translate-button"
+                onClick={() => {
+                  const googleTranslateElement = document.getElementById(
+                    "google_translate_element"
+                  );
+                  const select =
+                    googleTranslateElement?.querySelector(".goog-te-combo");
+                  if (select) {
+                    select.focus();
+                    const event = new MouseEvent("mousedown", {
+                      view: window,
+                      bubbles: true,
+                      cancelable: true,
+                    });
+                    select.dispatchEvent(event);
+                  }
+                }}
+              >
                 <i className="fas fa-globe"></i>
-              </div>
+                <span>Translate</span>
+              </button>
               <div id="google_translate_element"></div>
             </div>
 
