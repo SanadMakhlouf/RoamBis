@@ -94,8 +94,8 @@ function Header() {
                   }
                 }}
               >
-                <i className="fas fa-globe"></i>
-                <span>Translate</span>
+                <i className="fas fa-language"></i>
+                {/* <span>Translate</span> */}
               </button>
               <div id="google_translate_element"></div>
             </div>
