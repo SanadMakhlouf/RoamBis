@@ -189,7 +189,7 @@ const Countries = () => {
                 <div
                   key={country.id}
                   className="country-card"
-                  onClick={() => handleCountryClick(country.code)}
+                  onClick={() => handleCountryClick(country.iso3)}
                 >
                   <div className="country-flag">
                     <img

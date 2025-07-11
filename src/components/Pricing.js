@@ -1,50 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/Pricing.css";
 
 function Pricing() {
-  const plans = [
-    {
-      name: "Europe+",
-      description:
-        "Perfect for European travelers seeking reliable connectivity",
-      price: 15,
-      countries: "+10",
-      features: [
-        "Wi-Fi Hotspot Enabled",
-        "Instant Digital eSIM Delivery",
-        "4G/5G Network Coverage",
-        "Optional Auto-Renew",
-        "24/7 Customer Support",
-      ],
-    },
-    {
-      name: "Middle East",
-      description: "Ideal for business and leisure travel in the Middle East",
-      price: 35,
-      countries: "+10",
-      features: [
-        "Wi-Fi Hotspot Enabled",
-        "Instant Digital eSIM Delivery",
-        "4G/5G Network Coverage",
-        "Optional Auto-Renew",
-        "24/7 Customer Support",
-      ],
-    },
-    {
-      name: "Global",
-      description: "Our most comprehensive plan for worldwide travelers",
-      price: 65,
-      countries: 119,
-      isPopular: true,
-      features: [
-        "Wi-Fi Hotspot Enabled",
-        "Instant Digital eSIM Delivery",
-        "4G/5G Network Coverage",
-        "Optional Auto-Renew",
-        "Priority 24/7 Support",
-      ],
-    },
-  ];
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchPlans();
+  }, []);
+
+  const fetchPlans = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("bearerToken");
+      const response = await fetch("http://127.0.0.1:8000/api/plans", {
+        headers: {
+          Accept: "application/json",
+          Authorization: token,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch plans");
+      }
+
+      const result = await response.json();
+      console.log("API Response for plans:", result);
+
+      // Sélectionner 3 plans au hasard
+      const allPlans = result.data;
+      const shuffled = [...allPlans].sort(() => 0.5 - Math.random());
+      const selectedPlans = shuffled.slice(0, 3).map((plan, index) => ({
+        ...plan,
+        isPopular: index === 1, // Le deuxième plan sera marqué comme populaire
+      }));
+
+      setPlans(selectedPlans);
+    } catch (err) {
+      setError(err.message);
+      console.error("Error fetching plans:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="pricing">
+        <div className="container">
+          <div className="loading">Loading plans...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="pricing">
+        <div className="container">
+          <div className="error-message">{error}</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="pricing">
@@ -56,7 +75,7 @@ function Pricing() {
           {plans.map((plan, index) => (
             <div
               className={`pricing-card ${plan.isPopular ? "popular" : ""}`}
-              key={index}
+              key={plan.id || index}
             >
               {plan.isPopular && (
                 <div className="popular-tag">Most Popular</div>
@@ -64,7 +83,9 @@ function Pricing() {
               <h3>{plan.name}</h3>
               <p className="plan-description">{plan.description}</p>
               <div className="coverage">
-                <span className="countries-count">{plan.countries}</span>
+                <span className="countries-count">
+                  {plan.countries_count || "10+"}
+                </span>
                 <span className="countries-text">Countries</span>
               </div>
               <div className="price">
@@ -73,12 +94,22 @@ function Pricing() {
                 <span className="period">/month</span>
               </div>
               <ul className="features-list">
-                {plan.features.map((feature, featureIndex) => (
+                {(
+                  plan.features || [
+                    "Wi-Fi Hotspot Enabled",
+                    "Instant Digital eSIM Delivery",
+                    "4G/5G Network Coverage",
+                    "Optional Auto-Renew",
+                    "24/7 Customer Support",
+                  ]
+                ).map((feature, featureIndex) => (
                   <li key={featureIndex}>
-                    <div className="feature-icon" >
+                    <div className="feature-icon">
                       <i className="fa-solid fa-check"></i>
                     </div>
-                    <span>{feature}</span>
+                    <span>
+                      {typeof feature === "object" ? feature.name : feature}
+                    </span>
                   </li>
                 ))}
               </ul>
