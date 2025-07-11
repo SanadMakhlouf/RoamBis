@@ -23,8 +23,6 @@ const Profile = () => {
   const [personalInfo, setPersonalInfo] = useState({
     name: localStorage.getItem("userName") || "",
     email: localStorage.getItem("userEmail") || "",
-    phone: localStorage.getItem("userPhone") || "",
-    address: localStorage.getItem("userAddress") || "",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -106,24 +104,26 @@ const Profile = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/api/user/profile", {
+      const response = await fetch("http://127.0.0.1:8000/api/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify(personalInfo),
+        body: JSON.stringify({
+          name: personalInfo.name,
+          email: personalInfo.email,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update profile");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update profile");
       }
 
       // Update localStorage
       localStorage.setItem("userName", personalInfo.name);
       localStorage.setItem("userEmail", personalInfo.email);
-      localStorage.setItem("userPhone", personalInfo.phone);
-      localStorage.setItem("userAddress", personalInfo.address);
 
       setIsEditing(false);
     } catch (err) {
@@ -258,28 +258,6 @@ const Profile = () => {
                     placeholder="Enter your email"
                   />
                 </div>
-                <div className="input-group">
-                  <label>Phone:</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={personalInfo.phone}
-                    onChange={handleInputChange}
-                    disabled={!isEditing}
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-                <div className="input-group">
-                  <label>Address:</label>
-                  <textarea
-                    name="address"
-                    value={personalInfo.address}
-                    onChange={handleInputChange}
-                    disabled={!isEditing}
-                    placeholder="Enter your address"
-                    rows="3"
-                  />
-                </div>
                 {isEditing && (
                   <div className="button-group">
                     <button
@@ -289,8 +267,6 @@ const Profile = () => {
                         setPersonalInfo({
                           name: localStorage.getItem("userName") || "",
                           email: localStorage.getItem("userEmail") || "",
-                          phone: localStorage.getItem("userPhone") || "",
-                          address: localStorage.getItem("userAddress") || "",
                         });
                       }}
                     >
