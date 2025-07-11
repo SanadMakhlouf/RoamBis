@@ -37,16 +37,6 @@ function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={`hamburger ${isMenuOpen ? "active" : ""}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
           {/* Navigation Links - Will be hidden on mobile unless menu is open */}
           <nav className={`nav-links ${isMenuOpen ? "active" : ""}`}>
             <Link to="/how-it-works" onClick={() => setIsMenuOpen(false)}>
@@ -75,7 +65,8 @@ function Header() {
             </Link>
           </nav>
 
-          <div className={`header-actions ${isMenuOpen ? "active" : ""}`}>
+          {/* Header Actions - Always visible */}
+          <div className="header-actions">
             {/* Google Translate Widget */}
             <div className="translate-wrapper">
               <button
@@ -98,7 +89,6 @@ function Header() {
                 }}
               >
                 <i className="fas fa-language"></i>
-                {/* <span>Translate</span> */}
               </button>
               <div id="google_translate_element"></div>
             </div>
@@ -143,14 +133,20 @@ function Header() {
                 )}
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="login-btn"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <Link to="/login" className="login-btn">
                 Log In
               </Link>
             )}
+
+            {/* Mobile Menu Button - Moved to the end */}
+            <button
+              className={`hamburger ${isMenuOpen ? "active" : ""}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
           </div>
         </div>
       </div>
