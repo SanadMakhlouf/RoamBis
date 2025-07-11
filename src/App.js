@@ -27,11 +27,13 @@ import Contact from "./components/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import PolicyPage from "./components/PolicyPage";
 import Blog from "./components/Blog";
+import BlogPost from "./components/BlogPost";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
+      <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -155,6 +157,7 @@ function App() {
             </>
           }
         />
+        <Route path="/blog/:id" element={<BlogPost />} />
         <Route
           path="/"
           element={
@@ -174,6 +177,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }
