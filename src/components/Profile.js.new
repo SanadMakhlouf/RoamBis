@@ -7,17 +7,17 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 6; // Show 6 orders per page (3 rows of 2)
+  const ordersPerPage = 6;
 
-  // Add password update state
+  // Add password reset state
   const [passwordData, setPasswordData] = useState({
-    current_password: "",
+    email: "",
     password: "",
     password_confirmation: "",
   });
-  const [passwordUpdateLoading, setPasswordUpdateLoading] = useState(false);
-  const [passwordUpdateError, setPasswordUpdateError] = useState(null);
-  const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState(false);
+  const [passwordResetLoading, setPasswordResetLoading] = useState(false);
+  const [passwordResetError, setPasswordResetError] = useState(null);
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
 
   // Add state for personal info
   const [personalInfo, setPersonalInfo] = useState({
@@ -39,7 +39,7 @@ const Profile = () => {
     }));
   };
 
-  // Handle password input changes
+  // Handle password reset input changes
   const handlePasswordInputChange = (e) => {
     const { name, value } = e.target;
     setPasswordData((prev) => ({
@@ -48,50 +48,46 @@ const Profile = () => {
     }));
   };
 
-  // Handle password update submission
-  const handlePasswordUpdate = async (e) => {
+  // Handle password reset submission
+  const handlePasswordReset = async (e) => {
     e.preventDefault();
     try {
-      setPasswordUpdateLoading(true);
-      setPasswordUpdateError(null);
-      setPasswordUpdateSuccess(false);
+      setPasswordResetLoading(true);
+      setPasswordResetError(null);
+      setPasswordResetSuccess(false);
 
       const token = localStorage.getItem("bearerToken");
       if (!token) {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/profile/password",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify({
-            current_password: passwordData.current_password,
-            password: passwordData.password,
-            password_confirmation: passwordData.password_confirmation,
-          }),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:8000/reset-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          ...passwordData,
+          token: token.replace("Bearer ", ""),
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update password");
+        throw new Error(errorData.message || "Failed to reset password");
       }
 
-      setPasswordUpdateSuccess(true);
+      setPasswordResetSuccess(true);
       setPasswordData({
-        current_password: "",
+        email: "",
         password: "",
         password_confirmation: "",
       });
     } catch (err) {
-      setPasswordUpdateError(err.message);
+      setPasswordResetError(err.message);
     } finally {
-      setPasswordUpdateLoading(false);
+      setPasswordResetLoading(false);
     }
   };
 
@@ -384,21 +380,18 @@ const Profile = () => {
 
       case "password":
         return (
-          <div className="profile-section password-update">
-            <h2>Update Password</h2>
-            <form
-              onSubmit={handlePasswordUpdate}
-              className="password-update-form"
-            >
+          <div className="profile-section password-reset">
+            <h2>Reset Password</h2>
+            <form onSubmit={handlePasswordReset} className="password-reset-form">
               <div className="input-group">
-                <label>Current Password:</label>
+                <label>Email:</label>
                 <input
-                  type="password"
-                  name="current_password"
-                  value={passwordData.current_password}
+                  type="email"
+                  name="email"
+                  value={passwordData.email}
                   onChange={handlePasswordInputChange}
                   required
-                  placeholder="Enter your current password"
+                  placeholder="Confirm your email"
                 />
               </div>
               <div className="input-group">
@@ -429,17 +422,17 @@ const Profile = () => {
                 <button
                   type="submit"
                   className="save-btn"
-                  disabled={passwordUpdateLoading}
+                  disabled={passwordResetLoading}
                 >
-                  {passwordUpdateLoading ? "Updating..." : "Update Password"}
+                  {passwordResetLoading ? "Resetting..." : "Reset Password"}
                 </button>
               </div>
-              {passwordUpdateError && (
-                <div className="error-message">{passwordUpdateError}</div>
+              {passwordResetError && (
+                <div className="error-message">{passwordResetError}</div>
               )}
-              {passwordUpdateSuccess && (
+              {passwordResetSuccess && (
                 <div className="success-message">
-                  Password has been successfully updated!
+                  Password has been successfully reset!
                 </div>
               )}
             </form>
@@ -459,9 +452,7 @@ const Profile = () => {
         </div>
         <nav className="sidebar-nav">
           <button
-            className={`nav-item ${
-              activeSection === "personal" ? "active" : ""
-            }`}
+            className={`nav-item ${activeSection === "personal" ? "active" : ""}`}
             onClick={() => setActiveSection("personal")}
           >
             Personal Information
@@ -473,20 +464,16 @@ const Profile = () => {
             My Orders
           </button>
           <button
-            className={`nav-item ${
-              activeSection === "payments" ? "active" : ""
-            }`}
+            className={`nav-item ${activeSection === "payments" ? "active" : ""}`}
             onClick={() => setActiveSection("payments")}
           >
             Payment Methods
           </button>
           <button
-            className={`nav-item ${
-              activeSection === "password" ? "active" : ""
-            }`}
+            className={`nav-item ${activeSection === "password" ? "active" : ""}`}
             onClick={() => setActiveSection("password")}
           >
-            Update Password
+            Reset Password
           </button>
         </nav>
       </div>
@@ -495,4 +482,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile; 
