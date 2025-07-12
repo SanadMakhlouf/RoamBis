@@ -28,6 +28,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import PolicyPage from "./components/PolicyPage";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
+import Referral from "./components/Referral";
 
 function App() {
   return (
@@ -43,6 +44,16 @@ function App() {
             <>
               <Header />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/referral"
+          element={
+            <>
+              <Header />
+              <Referral />
+              <Footer />
             </>
           }
         />
