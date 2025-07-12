@@ -15,8 +15,8 @@ const FAQ = () => {
           a: "An eSIM (Embedded SIM) is a digital SIM built into your device, allowing you to activate a mobile data plan without a physical SIM card.",
         },
         {
-          q: "What is ROAMbis?",
-          a: "ROAMbis is your gateway to fast, reliable, and affordable international data through travel-ready eSIMs. We cover 200+ countries and regions.",
+          q: "What is RoamBis?",
+          a: "RoamBis is your gateway to fast, reliable, and affordable international data through travel-ready eSIMs. We cover 200+ countries and regions.",
         },
         {
           q: "How do I purchase and activate an eSIM?",
@@ -33,11 +33,11 @@ const FAQ = () => {
       icon: "fa-solid fa-mobile-screen",
       questions: [
         {
-          q: "What devices are compatible with ROAMbis eSIMs?",
+          q: "What devices are compatible with RoamBis eSIMs?",
           a: "Our eSIMs work with the latest iPhones, Samsung Galaxy, Google Pixel, Huawei, Motorola, Oppo, and select iPads. See our device compatibility list for details.",
         },
         {
-          q: "Can I use ROAMbis on a smartwatch or tablet?",
+          q: "Can I use RoamBis on a smartwatch or tablet?",
           a: "Yes, as long as the device supports eSIM and is unlocked.",
         },
         {
@@ -90,7 +90,7 @@ const FAQ = () => {
       <div className="faq-content">
         <h1>Frequently Asked Questions</h1>
         <p className="faq-intro">
-          Find answers to common questions about ROAMbis eSIM services, device
+          Find answers to common questions about RoamBis eSIM services, device
           compatibility, activation process, and more.
         </p>
 

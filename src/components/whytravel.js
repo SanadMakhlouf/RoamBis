@@ -39,7 +39,7 @@ function WhyTravel() {
             <video src={video} autoPlay muted loop playsInline />
           </div>
           <div className="content-container">
-            <h2>Why Travel with ROAMbis</h2>
+            <h2>Why Travel with RoamBis</h2>
             <p className="main-text">
               Stay online wherever you are — whether you're exploring Paris,
               working remotely in Bali, or attending a conference in Dubai.

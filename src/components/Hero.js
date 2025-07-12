@@ -37,7 +37,7 @@ function Hero() {
           <div className="hero-phone">
             <img
               src={heroImage}
-              alt="ROAMbis eSIM and App"
+              alt="RoamBis eSIM and App"
               className="hero-image"
             />
           </div>

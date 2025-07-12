@@ -14,7 +14,7 @@ function Testimonials() {
             <h4>Janet Moore</h4>
             <div className="rating">⭐⭐⭐⭐⭐</div>
             <p>
-              "ROAMbis made my European vacation so much easier. I was connected
+              "RoamBis made my European vacation so much easier. I was connected
               instantly in every country without any hassle."
             </p>
           </div>
@@ -23,7 +23,7 @@ function Testimonials() {
             <h4>Robert Taylor</h4>
             <div className="rating">⭐⭐⭐⭐⭐</div>
             <p>
-              "As a frequent business traveler, ROAMbis has been a game-changer.
+              "As a frequent business traveler, RoamBis has been a game-changer.
               Reliable connectivity in every city I visit."
             </p>
           </div>

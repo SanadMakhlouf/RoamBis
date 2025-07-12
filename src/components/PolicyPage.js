@@ -32,7 +32,7 @@ function PolicyPage() {
               <p className="effective-date">Effective Date: July 9, 2025</p>
 
               <p className="intro">
-                Roambis Mobile ("we," "our," or "us") is committed to protecting
+              RoamBis Mobile ("we," "our," or "us") is committed to protecting
                 your privacy. This Privacy Policy explains how we collect, use,
                 disclose, and safeguard your information when you visit our
                 website or use our eSIM services.
@@ -96,7 +96,7 @@ function PolicyPage() {
 
           {activeTab === "cookies" && (
             <div className="policy-section">
-              <h1>🍪 Cookie Policy for Roambis Mobile</h1>
+              <h1>🍪 Cookie Policy for RoamBis Mobile</h1>
               <p className="effective-date">Effective Date: July 9, 2025</p>
 
               <p className="intro">
