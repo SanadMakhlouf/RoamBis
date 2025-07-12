@@ -116,7 +116,7 @@ function Login() {
           <span>Secure Access</span>
         </div>
         <h1>Welcome Back to</h1>
-        <h1 className="gradient-text">ROAMbis</h1>
+        <h1 className="gradient-text">RoamBis</h1>
         <p>Access your global connectivity dashboard and</p>
         <p>manage your eSIM plans from anywhere in the world.</p>
         <div className="login-list">
@@ -139,7 +139,7 @@ function Login() {
 
       <div className="login-form">
         <h1>Sign In</h1>
-        <p>Access your ROAMbis account</p>
+        <p>Access your RoamBis account</p>
         {error && <div className="error-message">{error}</div>}
         <div className="form-container">
           <form onSubmit={handleSubmit}>
@@ -202,19 +202,6 @@ function Login() {
                 </>
               )}
             </button>
-            <div className="continue-with">
-              <span>or continue with</span>
-            </div>
-            <div className="social-login">
-              <button type="button" className="google-btn">
-                <i className="fab fa-google"></i>
-                Google
-              </button>
-              <button type="button" className="apple-btn">
-                <i className="fab fa-apple"></i>
-                Apple
-              </button>
-            </div>
             <p className="signup-prompt">
               Don't have an account? <Link to="/signup">Sign up now</Link>
             </p>

@@ -7,7 +7,7 @@ function CTA() {
       <div className="container">
         <h2>Ready to explore the world with seamless data?</h2>
         <p>
-          Join thousands of happy travelers who stay connected with ROAMbis
+          Join thousands of happy travelers who stay connected with RoamBis
           without worrying about expensive roaming charges or unreliable
           connections.
         </p>

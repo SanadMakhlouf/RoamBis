@@ -132,7 +132,7 @@ function Signup() {
           <span>Secure Registration</span>
         </div>
         <h1>Join</h1>
-        <h1 className="gradient-text">ROAMbis</h1>
+        <h1 className="gradient-text">RoamBis</h1>
         <p>Create your account to access global connectivity</p>
         <p>and manage your eSIM plans from anywhere in the world.</p>
         <div className="login-list">
@@ -155,7 +155,7 @@ function Signup() {
 
       <div className="login-form">
         <h1>Sign Up</h1>
-        <p>Create your ROAMbis account</p>
+        <p>Create your RoamBis account</p>
         {error && <div className="error-message">{error}</div>}
         <div className="form-container">
           <form onSubmit={handleSubmit}>
@@ -245,19 +245,6 @@ function Signup() {
                 </>
               )}
             </button>
-            <div className="continue-with">
-              <span>or sign up with</span>
-            </div>
-            <div className="social-login">
-              <button type="button" className="google-btn">
-                <i className="fab fa-google"></i>
-                Google
-              </button>
-              <button type="button" className="apple-btn">
-                <i className="fab fa-apple"></i>
-                Apple
-              </button>
-            </div>
             <p className="signup-prompt">
               Already have an account? <Link to="/login">Sign in</Link>
             </p>

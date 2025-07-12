@@ -52,7 +52,7 @@ const HowEsimWorks = () => {
             <h2>
               It all starts
               <br />
-              with ROAMbis
+              with RoamBis
             </h2>
             <p>
               Experience seamless connectivity worldwide with our advanced eSIM

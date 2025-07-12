@@ -49,7 +49,7 @@ function TrustedBy() {
     <section className="trusted-by">
       <div className="container">
         <p className="section-note">
-          More than 100,000+ people around the globe rely on ROAMbis
+          More than 100,000+ people around the globe rely on RoamBis
         </p>
         <div className="trust-logos">
           {brands.map((brand, index) => (
