@@ -16,14 +16,14 @@
   text-align: center;
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  color: white;
+  color: #ffffff;
   font-weight: 700;
 }
 
 .section-subtitle {
   text-align: center;
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   margin-bottom: 60px;
 }
 
@@ -46,7 +46,7 @@
 .step-number {
   width: 50px;
   height: 50px;
-  background: #ad0fd8;
+  background: #8b2fd8;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -55,16 +55,16 @@
   color: white;
   font-size: 1.5rem;
   position: absolute;
-  top: -54px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  box-shadow: 0 4px 10px rgba(173, 15, 216, 0.3);
+  box-shadow: 0 4px 10px rgba(139, 47, 216, 0.3);
 }
 
 .step-content {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 40px 30px 30px;
   height: 100%;
@@ -72,18 +72,20 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
 .step-content:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .step-icon {
   font-size: 3rem;
   margin-bottom: 20px;
-  color: #ad0fd8;
+  color: #ffffff;
   height: 60px;
   display: flex;
   align-items: center;
@@ -91,28 +93,23 @@
 }
 
 .step-content h3 {
-  color: white;
+  color: #ffffff;
   font-size: 1.5rem;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
 .step-content p {
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   line-height: 1.6;
   margin: 0;
+  font-size: 1.1rem;
 }
-
-
 
 /* Responsive Design */
 @media (max-width: 992px) {
   .steps {
     gap: 30px;
-  }
-
-  .steps::before {
-    width: calc(100% - 100px);
   }
 }
 
@@ -136,10 +133,6 @@
   .step {
     width: 100%;
     max-width: 400px;
-  }
-
-  .steps::before {
-    display: none;
   }
 
   .step-content {
