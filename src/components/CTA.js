@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/CTA.css";
 
 function CTA() {
@@ -11,7 +12,9 @@ function CTA() {
           without worrying about expensive roaming charges or unreliable
           connections.
         </p>
-        <button className="btn-cta">Discover all Countries</button>
+        <Link to="/countries" className="btn-cta">
+          Discover all Countries
+        </Link>
       </div>
     </section>
   );

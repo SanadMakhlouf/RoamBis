@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/Destinations.css";
 
 function Destinations() {
@@ -9,7 +10,6 @@ function Destinations() {
       price: 4.5,
       image:
         "https://images.pexels.com/photos/705764/pexels-photo-705764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      link: "https://www.roambis.com/destinations/europe",
     },
     {
       name: "Asia Pacific",
@@ -17,7 +17,6 @@ function Destinations() {
       price: 2.5,
       image:
         "https://images.pexels.com/photos/1366957/pexels-photo-1366957.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      link: "https://www.roambis.com/destinations/asia-pacific",
     },
     {
       name: "Americas",
@@ -25,7 +24,6 @@ function Destinations() {
       price: 3.5,
       image:
         "https://images.pexels.com/photos/290386/pexels-photo-290386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      link: "https://www.roambis.com/destinations/americas",
     },
     {
       name: "Middle East",
@@ -33,7 +31,6 @@ function Destinations() {
       price: 6.5,
       image:
         "https://images.pexels.com/photos/3243028/pexels-photo-3243028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      link: "https://www.roambis.com/destinations/middle-east",
     },
   ];
 
@@ -45,13 +42,7 @@ function Destinations() {
         </p>
         <div className="destinations-grid">
           {destinations.map((destination, index) => (
-            <a
-              href={destination.link}
-              className="destination-card"
-              key={index}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link to="/countries" className="destination-card" key={index}>
               <div
                 className="destination-image"
                 style={{ backgroundImage: `url(${destination.image})` }}
@@ -62,7 +53,7 @@ function Destinations() {
                   <div className="discover-more">Discover More →</div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

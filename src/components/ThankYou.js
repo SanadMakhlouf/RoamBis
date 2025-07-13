@@ -37,7 +37,7 @@ const ThankYou = () => {
 
         <div className="support-info">
           <p>Need help? Our support team is available 24/7</p>
-          <p>Email: support@example.com</p>
+          <p>Email: support@roambis.com</p>
         </div>
 
         <div className="action-buttons">

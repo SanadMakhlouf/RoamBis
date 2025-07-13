@@ -60,28 +60,28 @@ function Footer() {
           <h3>Follow Us</h3>
           <div className="social-links">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/profile.php?id=61573623737810"
               target="_blank"
               rel="noopener noreferrer"
             >
               <i className="fab fa-facebook"></i>
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/roambis_mobile"
               target="_blank"
               rel="noopener noreferrer"
             >
               <i className="fab fa-instagram"></i>
             </a>
             <a
-              href="https://tiktok.com"
+              href="https://www.tiktok.com/@roambis_mobile"
               target="_blank"
               rel="noopener noreferrer"
             >
               <i className="fab fa-tiktok"></i>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com/roambis_mobile"
               target="_blank"
               rel="noopener noreferrer"
             >

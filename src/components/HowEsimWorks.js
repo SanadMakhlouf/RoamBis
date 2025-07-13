@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/HowEsimWorks.css";
 import logo from "../assets/logo.png";
 
@@ -19,8 +20,12 @@ const HowEsimWorks = () => {
               that work seamlessly across devices, countries, and networks.
             </p>
             <div className="esim-hero-buttons">
-              <button className="esim-get-started">Get Started</button>
-              <button className="esim-see-action">See It In Action</button>
+              <Link to="/countries" className="esim-get-started">
+                Get Started
+              </Link>
+              <Link to="/coverage" className="esim-see-action">
+                See Coverage
+              </Link>
             </div>
             <div className="esim-hero-stats">
               <div className="esim-stat-item">
@@ -131,7 +136,6 @@ const HowEsimWorks = () => {
                 Select from our range of flexible data plans tailored to your
                 destination and needs.
               </p>
-            
             </div>
 
             <div className="esim-step-card">
@@ -144,7 +148,6 @@ const HowEsimWorks = () => {
                 Use your smartphone to scan the QR code we'll send to your email
                 instantly.
               </p>
-             
             </div>
 
             <div className="esim-step-card">
@@ -157,7 +160,6 @@ const HowEsimWorks = () => {
                 Follow the simple prompts on your device and get connected to
                 our global network.
               </p>
-              
             </div>
           </div>
         </div>
@@ -171,7 +173,9 @@ const HowEsimWorks = () => {
               Join millions of satisfied travelers using our eSIM technology.
               Activate your plan in minutes and stay connected worldwide.
             </p>
-            <button className="esim-cta-button">Get Your eSIM Now</button>
+            <Link to="/countries" className="esim-cta-button">
+              Get Your eSIM Now
+            </Link>
           </div>
         </div>
       </section>
