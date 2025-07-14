@@ -8,6 +8,7 @@ import {
 import { feature } from "topojson-client";
 import "./styles/Coverage.css";
 import plansImage from "../assets/plans.png";
+import { API_URL } from "../config";
 
 const Coverage = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -25,7 +26,7 @@ const Coverage = () => {
 
   const fetchCountries = async (mapFeatures) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/countries");
+      const response = await fetch(`${API_URL}/countries`);
       if (!response.ok) {
         throw new Error("Failed to fetch countries");
       }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/Referral.css";
+import { API_URL } from "../config";
 
 function Referral() {
   const [referralCode, setReferralCode] = useState("");
@@ -15,13 +16,16 @@ function Referral() {
 
       const token = localStorage.getItem("bearerToken"); // Récupérer le token d'authentification
       if (!token) {
-        throw new Error("Authentication required");
+        setError("You must be logged in to access your referral code");
+        setLoading(false);
+        return;
       }
 
-      const response = await fetch("http://127.0.0.1:8000/api/referral/code", {
+      const response = await fetch(`${API_URL}/referral/code`, {
+        method: "GET",
         headers: {
-          Authorization: token,
           "Content-Type": "application/json",
+          Authorization: token,
         },
       });
 
@@ -52,16 +56,13 @@ function Referral() {
         throw new Error("Authentication required");
       }
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/referral/code/generate",
-        {
-          method: "POST",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/referral/code/generate`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to generate new referral code");

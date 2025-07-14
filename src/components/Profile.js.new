@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/Profile.css";
+import { API_URL, BASE_URL } from "../config";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("personal");
@@ -61,7 +62,7 @@ const Profile = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/reset-password", {
+      const response = await fetch(`${BASE_URL}/reset-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +103,7 @@ const Profile = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/api/user/profile", {
+      const response = await fetch(`${API_URL}/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +143,7 @@ const Profile = () => {
         }
 
         const response = await fetch(
-          `http://127.0.0.1:8000/api/orders?page=${currentPage}`,
+          `${API_URL}/orders?page=${currentPage}`,
           {
             headers: {
               Accept: "application/json",

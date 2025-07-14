@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles/login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 function Signup() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function Signup() {
     email: "",
     password: "",
     password_confirmation: "",
+    referral_code: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -39,7 +41,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register", {
+      const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,6 +52,7 @@ function Signup() {
           email: formData.email,
           password: formData.password,
           password_confirmation: formData.password_confirmation,
+          referral_code: formData.referral_code,
         }),
       });
 

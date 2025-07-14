@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./styles/Plans.css";
 import plansImage from "../assets/plans.png";
+import { API_URL } from "../config";
 
 function Plans() {
   const { countryCode } = useParams();
@@ -49,7 +50,7 @@ function Plans() {
         // Fetch country info and plans if countryCode is provided
         if (countryCode) {
           const response = await fetch(
-            `http://127.0.0.1:8000/api/plans/country/${countryCode}/`
+            `${API_URL}/plans/country/${countryCode}/`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch country information");
@@ -63,7 +64,7 @@ function Plans() {
           }
         } else {
           // Fetch all plans if no country code
-          const plansResponse = await fetch("http://127.0.0.1:8000/api/plans");
+          const plansResponse = await fetch(`${API_URL}/plans`);
           if (!plansResponse.ok) {
             throw new Error("Failed to fetch plans");
           }
@@ -322,7 +323,6 @@ function Plans() {
                     Buy Now
                   </button>
                 </div>
-              
               ))
             ) : (
               <div className="no-plans">

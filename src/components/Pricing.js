@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./styles/Pricing.css";
+import { API_URL } from "../config";
 
 function Pricing() {
   const [plans, setPlans] = useState([]);
@@ -7,43 +9,41 @@ function Pricing() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchPlans = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${API_URL}/plans`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch plans");
+        }
+
+        const result = await response.json();
+        console.log("API Response for plans:", result);
+
+        // Sélectionner 3 plans au hasard
+        const allPlans = result.data;
+        const shuffled = [...allPlans].sort(() => 0.5 - Math.random());
+        const selectedPlans = shuffled.slice(0, 3).map((plan, index) => ({
+          ...plan,
+          isPopular: index === 1, // Le deuxième plan sera marqué comme populaire
+        }));
+
+        setPlans(selectedPlans);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching plans:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchPlans();
   }, []);
-
-  const fetchPlans = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem("bearerToken");
-      const response = await fetch("http://127.0.0.1:8000/api/plans", {
-        headers: {
-          Accept: "application/json",
-          Authorization: token,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch plans");
-      }
-
-      const result = await response.json();
-      console.log("API Response for plans:", result);
-
-      // Sélectionner 3 plans au hasard
-      const allPlans = result.data;
-      const shuffled = [...allPlans].sort(() => 0.5 - Math.random());
-      const selectedPlans = shuffled.slice(0, 3).map((plan, index) => ({
-        ...plan,
-        isPopular: index === 1, // Le deuxième plan sera marqué comme populaire
-      }));
-
-      setPlans(selectedPlans);
-    } catch (err) {
-      setError(err.message);
-      console.error("Error fetching plans:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (

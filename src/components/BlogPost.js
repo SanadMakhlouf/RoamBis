@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./styles/BlogPost.css";
+import { API_URL } from "../config";
 
 function BlogPost() {
   const [post, setPost] = useState(null);
@@ -21,9 +22,10 @@ function BlogPost() {
       const token = localStorage.getItem("bearerToken");
 
       console.log("Fetching blog post with ID:", id);
-      const response = await fetch(`http://127.0.0.1:8000/api/blogs/${id}`, {
+      const response = await fetch(`${API_URL}/blogs/${id}`, {
+        method: "GET",
         headers: {
-          Accept: "application/json",
+          "Content-Type": "application/json",
           Authorization: token,
         },
       });

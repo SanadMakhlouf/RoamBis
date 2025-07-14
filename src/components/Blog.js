@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./styles/Blog.css";
+import { API_URL } from "../config";
 
 function Blog() {
   const [blogs, setBlogs] = useState([]);
@@ -12,40 +14,36 @@ function Blog() {
   const [modalError, setModalError] = useState(null);
 
   useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem("bearerToken");
+
+        const response = await fetch(`${API_URL}/blogs?page=${currentPage}`, {
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: token } : {}),
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch blogs");
+        }
+
+        const result = await response.json();
+        console.log("API Response for blogs list:", result);
+        setBlogs(result.data);
+        setPagination(result.meta);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching blogs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchBlogs();
   }, [currentPage]);
-
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const token = localStorage.getItem("bearerToken");
-
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/blogs?page=${currentPage}`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: token,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch blogs");
-      }
-
-      const result = await response.json();
-      console.log("API Response for blogs list:", result);
-      setBlogs(result.data);
-      setPagination(result.meta);
-    } catch (err) {
-      setError(err.message);
-      console.error("Error fetching blogs:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleReadMore = (post) => {
     setModalLoading(true);

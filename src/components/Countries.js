@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/Countries.css";
 import worldImage from "../assets/europe.png"; // Using existing world image
+import { API_URL } from "../config";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
@@ -31,9 +32,10 @@ const Countries = () => {
 
   const fetchCountries = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/countries");
+      setLoading(true);
+      const response = await fetch(`${API_URL}/countries`);
       if (!response.ok) {
-        throw new Error("Failed to fetch countries");
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       const countriesArray = Array.isArray(data) ? data : data.data || [];

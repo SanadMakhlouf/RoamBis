@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/Profile.css";
+import { API_URL } from "../config";
 
 const Profile = () => {
   const [activeSection, setActiveSection] = useState("personal");
@@ -49,31 +50,33 @@ const Profile = () => {
   // Handle password update submission
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
-    try {
-      setPasswordUpdateLoading(true);
-      setPasswordUpdateError(null);
-      setPasswordUpdateSuccess(false);
+    setPasswordUpdateLoading(true);
+    setPasswordUpdateError(null);
 
+    if (passwordData.password !== passwordData.password_confirmation) {
+      setPasswordUpdateError("New passwords don't match");
+      setPasswordUpdateLoading(false);
+      return;
+    }
+
+    try {
       const token = localStorage.getItem("bearerToken");
       if (!token) {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/profile/password",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify({
-            current_password: passwordData.current_password,
-            password: passwordData.password,
-            password_confirmation: passwordData.password_confirmation,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/profile/password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          current_password: passwordData.current_password,
+          password: passwordData.password,
+          password_confirmation: passwordData.password_confirmation,
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -104,7 +107,7 @@ const Profile = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/api/profile", {
+      const response = await fetch(`${API_URL}/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -145,15 +148,12 @@ const Profile = () => {
           throw new Error("No authentication token found");
         }
 
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/orders?page=${currentPage}`,
-          {
-            headers: {
-              Accept: "application/json",
-              Authorization: token,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/orders?page=${currentPage}`, {
+          headers: {
+            Accept: "application/json",
+            Authorization: token,
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch orders: ${response.status}`);

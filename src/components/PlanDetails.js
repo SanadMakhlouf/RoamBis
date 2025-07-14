@@ -18,6 +18,7 @@ import {
   faCopy,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "../config";
 
 const PlanDetails = () => {
   const { planId, countryCode } = useParams();
@@ -30,6 +31,8 @@ const PlanDetails = () => {
   const [startOption, setStartOption] = useState("now"); // "now" or "later"
   const [specificDate, setSpecificDate] = useState("");
   const [countryName, setCountryName] = useState("");
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartError, setCartError] = useState(null);
 
   // Helper function to get flag URL
   const getFlagUrl = (code) => {
@@ -104,7 +107,7 @@ const PlanDetails = () => {
 
         // Fetch plans for the specific country
         const response = await fetch(
-          `http://127.0.0.1:8000/api/plans/country/${countryCode}/`
+          `${API_URL}/plans/country/${countryCode}/`
         );
 
         if (!response.ok) {
@@ -179,48 +182,42 @@ const PlanDetails = () => {
   };
 
   const handleAddToCart = async () => {
-    if (!plan || !countryCode) return;
-
     try {
-      // You can add your cart API endpoint here
-      const cartData = {
-        plan_id: plan.id,
-        country_code: countryCode,
-        quantity: quantity,
-        start_option: startOption,
-        start_date: startOption === "later" ? specificDate : null,
-        total_price: (plan.price * quantity).toFixed(2),
-      };
+      setAddingToCart(true);
+      setCartError(null);
 
-      console.log("Adding to cart:", cartData);
+      // Check if user is logged in
+      const token = localStorage.getItem("bearerToken");
+      if (!token) {
+        navigate("/login", { state: { from: `/plan/${planId}` } });
+        return;
+      }
 
-      // Example API call (uncomment and modify when you have the cart API endpoint)
-      /*
-      const response = await fetch('http://127.0.0.1:8000/api/cart/add', {
-        method: 'POST',
+      const response = await fetch(`${API_URL}/cart/add`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: token,
         },
-        body: JSON.stringify(cartData)
+        body: JSON.stringify({
+          plan_id: planId,
+          quantity: quantity,
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add to cart');
+        throw new Error("Failed to add to cart");
       }
 
       const result = await response.json();
-      if (result.status === 'success') {
-        navigate('/cart');
+      if (result.status === "success") {
+        navigate("/cart");
       }
-      */
-
-      // For now, just show an alert
-      alert(
-        `Added ${quantity} ${plan.name} plan(s) to cart for ${plan.countryName}!`
-      );
     } catch (err) {
       console.error("Error adding to cart:", err);
       alert("Failed to add plan to cart. Please try again.");
+    } finally {
+      setAddingToCart(false);
     }
   };
 
@@ -243,15 +240,12 @@ const PlanDetails = () => {
       }
 
       // First, fetch all countries and find the ID
-      const countryResponse = await fetch(
-        "http://127.0.0.1:8000/api/countries",
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const countryResponse = await fetch(`${API_URL}/countries`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: token,
+        },
+      });
 
       if (!countryResponse.ok) {
         throw new Error(`Failed to fetch countries: ${countryResponse.status}`);
@@ -301,7 +295,7 @@ const PlanDetails = () => {
       console.log("Using authorization token:", token);
 
       // Create the order
-      const response = await fetch("http://127.0.0.1:8000/api/orders", {
+      const response = await fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
