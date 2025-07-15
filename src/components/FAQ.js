@@ -23,7 +23,7 @@ const FAQ = () => {
           a: "Choose a plan for your destination, receive a QR code by email, and scan it with your device. Activation usually takes under 20 seconds.",
         },
         {
-          q: "Can I use ROAMbis globally?",
+          q: "Can I use RoamBis globally?",
           a: "Yes! Our plans work in over 200 countries. We also offer a Global eSIM that works across regions.",
         },
       ],

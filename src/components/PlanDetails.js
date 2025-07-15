@@ -270,13 +270,40 @@ const PlanDetails = () => {
         throw new Error("Invalid countries data format received from server");
       }
 
-      // Find the country by code (case insensitive)
-      const country = countriesData.find(
-        (c) => c.code.toLowerCase() === countryCode.toLowerCase()
+      console.log("Looking for country code:", countryCode);
+      
+      // Find the country by code - try different matching strategies
+      let country = null;
+      
+      // First try: exact match on code (case insensitive)
+      country = countriesData.find(
+        (c) => c.code?.toLowerCase() === countryCode.toLowerCase()
       );
+      
+      // Second try: match on iso2 if available
+      if (!country) {
+        country = countriesData.find(
+          (c) => c.iso2?.toLowerCase() === countryCode.toLowerCase()
+        );
+      }
+      
+      // Third try: match on iso3 if available
+      if (!country) {
+        country = countriesData.find(
+          (c) => c.iso3?.toLowerCase() === countryCode.toLowerCase()
+        );
+      }
+      
+      // Fourth try: if countryCode is 3 chars (ISO3) but countries use 2 chars (ISO2)
+      if (!country && countryCode.length === 3) {
+        // Try to find a country with matching name or partial code
+        country = countriesData.find((c) => {
+          // Check if the country name contains the country code (for common abbreviations)
+          return c.name?.toLowerCase().includes(countryCode.toLowerCase());
+        });
+      }
 
       console.log("Found country:", country);
-      console.log("Looking for country code:", countryCode);
 
       if (!country || !country.id) {
         throw new Error(`Could not find country with code: ${countryCode}`);
