@@ -33,7 +33,7 @@ function Header() {
         <div className="nav">
           <div className="logo">
             <Link to="/">
-              <img src={logo} alt="ROAMbis Logo" className="logo-image" />
+              <img src={logo} alt="RoamBis Logo" className="logo-image" />
             </Link>
           </div>
 

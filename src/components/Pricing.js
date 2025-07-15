@@ -80,8 +80,8 @@ function Pricing() {
               {plan.isPopular && (
                 <div className="popular-tag">Most Popular</div>
               )}
-              <h3>{plan.name}</h3>
-              <p className="plan-description">{plan.description}</p>
+              <h3>{plan.name || "Plan"}</h3>
+              <p className="plan-description">{plan.description || "eSIM data plan"}</p>
               <div className="coverage">
                 <span className="countries-count">
                   {plan.countries_count || "10+"}
@@ -90,7 +90,7 @@ function Pricing() {
               </div>
               <div className="price">
                 <span className="currency">US</span>
-                <span className="amount">${plan.price}</span>
+                <span className="amount">${plan.price || "0"}</span>
                 <span className="period">/month</span>
               </div>
               <ul className="features-list">
@@ -102,13 +102,13 @@ function Pricing() {
                     "Optional Auto-Renew",
                     "24/7 Customer Support",
                   ]
-                ).map((feature, featureIndex) => (
+                ).filter(feature => feature !== null).map((feature, featureIndex) => (
                   <li key={featureIndex}>
                     <div className="feature-icon">
                       <i className="fa-solid fa-check"></i>
                     </div>
                     <span>
-                      {typeof feature === "object" ? feature.name : feature}
+                      {typeof feature === "object" && feature !== null ? feature.name || "Feature" : feature}
                     </span>
                   </li>
                 ))}

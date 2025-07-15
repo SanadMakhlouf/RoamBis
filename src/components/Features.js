@@ -5,7 +5,7 @@ function Features() {
   return (
     <section className="why-choose">
       <div className="container">
-        <h2>Why Choose ROAMbis</h2>
+        <h2>Why Choose RoamBis</h2>
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon">
