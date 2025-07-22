@@ -179,7 +179,7 @@ function App() {
               <HowItWorks />
               <WhyTravel />
               <Destinations />
-              <Pricing />
+             
               <Testimonials />
               <TrustedBy />
               <CTA />
