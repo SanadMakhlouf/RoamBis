@@ -111,7 +111,7 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="login-content">
+      <div className="login-content responsive-hide">
         <div className="secure-badge">
           <i className="fas fa-shield-alt"></i>
           <span>Secure Access</span>

@@ -129,7 +129,7 @@ function Signup() {
 
   return (
     <div className="login-container">
-      <div className="login-content">
+      <div className="login-content responsive-hide">
         <div className="secure-badge">
           <i className="fas fa-shield-alt"></i>
           <span>Secure Registration</span>
