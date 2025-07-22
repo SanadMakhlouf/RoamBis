@@ -102,7 +102,8 @@ const Countries = () => {
 
   // Helper function to get flag URL
   const getFlagUrl = (code) => {
-    return `https://flagsapi.com/${code.toUpperCase()}/flat/64.png`;
+    const lowerCode = code.toLowerCase();
+    return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/${lowerCode}-flag-01.png`;
   };
 
   if (loading) return <div className="loading">Loading countries...</div>;
