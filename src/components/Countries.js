@@ -20,7 +20,13 @@ const Countries = () => {
 
   useEffect(() => {
     if (countries.length > 0) {
-      const filtered = countries.filter(
+      // Filter out countries named 'Europe' or 'Asia'
+      const visibleCountries = countries.filter(
+        (country) =>
+          country.name.toLowerCase() !== "europe" &&
+          country.name.toLowerCase() !== "asia"
+      );
+      const filtered = visibleCountries.filter(
         (country) =>
           country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           country.code.toLowerCase().includes(searchTerm.toLowerCase())
@@ -39,8 +45,14 @@ const Countries = () => {
       }
       const data = await response.json();
       const countriesArray = Array.isArray(data) ? data : data.data || [];
-      setCountries(countriesArray);
-      setFilteredCountries(countriesArray);
+      // Filter out countries named 'Europe' or 'Asia'
+      const visibleCountries = countriesArray.filter(
+        (country) =>
+          country.name.toLowerCase() !== "europe" &&
+          country.name.toLowerCase() !== "asia"
+      );
+      setCountries(visibleCountries);
+      setFilteredCountries(visibleCountries);
       setLoading(false);
     } catch (err) {
       setError(err.message);
