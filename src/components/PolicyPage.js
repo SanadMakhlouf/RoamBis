@@ -57,6 +57,16 @@ function PolicyPage() {
                   <li>Website activity</li>
                   <li>Referral source</li>
                 </ul>
+                <div style={{ marginTop: '20px' }}>
+                  <a 
+                    href="https://docs.google.com/document/d/1dOE8ZROUY7j_NsoU3YD11ildmain5sl2QA9qV2fmiOc/edit?usp=drive_link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="read-more-button"
+                  >
+                    Read more
+                  </a>
+                </div>
               </section>
 
               {/* Continue with other privacy policy sections */}
@@ -88,6 +98,16 @@ function PolicyPage() {
                   using our site or purchasing a plan, you confirm this
                   requirement.
                 </p>
+                <div style={{ marginTop: '20px' }}>
+                  <a 
+                    href="https://docs.google.com/document/d/1-WtMQAlmp38wSs7jQloCRNA6kW81hUrHmwdZ7Ok3BMY/edit?usp=drive_link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="read-more-button"
+                  >
+                    Read more
+                  </a>
+                </div>
               </section>
 
               {/* Continue with other terms sections */}
@@ -140,6 +160,16 @@ function PolicyPage() {
                       effectiveness.
                     </p>
                   </div>
+                </div>
+                <div style={{ marginTop: '20px' }}>
+                  <a 
+                    href="https://docs.google.com/document/d/1fgSZU-rCqGMG1P9jjgRFeFPUzdL5PPz_ouSJSzhHgSs/edit?usp=drive_link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="read-more-button"
+                  >
+                    Read more
+                  </a>
                 </div>
               </section>
 
