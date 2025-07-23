@@ -63,6 +63,9 @@ function Header() {
             <Link to="/policies" onClick={() => setIsMenuOpen(false)}>
               Legal
             </Link>
+            <Link to="/referral" onClick={() => setIsMenuOpen(false)}>
+              Referral
+            </Link>
           </nav>
 
           {/* Header Actions - Always visible */}
@@ -125,6 +128,13 @@ function Header() {
                       }}
                     >
                       <i className="fas fa-shopping-bag"></i> My Orders
+                    </Link>
+                    <Link
+                      to="/referral"
+                      onClick={() => setIsUserMenuOpen(false)}
+                      className="referral-link"
+                    >
+                      <i className="fas fa-user-plus"></i> Refer a Friend
                     </Link>
                     <button onClick={handleLogout} className="logout-btn">
                       <i className="fas fa-sign-out-alt"></i> Logout
