@@ -41,6 +41,9 @@ const PlanDetails = () => {
         return null;
       }
       const cleanCode = code.toLowerCase().replace(/[^a-z]/g, "");
+      if (cleanCode === 'nn') {
+        return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/ng-flag-01.png`;
+      }
       // Accept 2 or 3 letter codes
       if (cleanCode.length !== 2 && cleanCode.length !== 3) {
         return null;

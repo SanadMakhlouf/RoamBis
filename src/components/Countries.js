@@ -64,6 +64,8 @@ const Countries = () => {
     // Special case for Negeri Sembilan
     if (countryName.toLowerCase() === 'negeri sembilan') {
       navigate('/nn');
+    } else if (countryName.toLowerCase() === 'nigeria') {
+      navigate('/plans/nn');
     } else {
       navigate(`/plans/${countryCode}`);
     }
@@ -106,7 +108,11 @@ const Countries = () => {
   };
 
   // Helper function to get flag URL
-  const getFlagUrl = (code) => {
+  const getFlagUrl = (code, name) => {
+    // Exception: For Nigeria, always use 'ng' as the flag code
+    if (name && name.toLowerCase() === 'nigeria') {
+      return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/ng-flag-01.png`;
+    }
     const lowerCode = code.toLowerCase();
     return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/${lowerCode}-flag-01.png`;
   };
@@ -217,7 +223,7 @@ const Countries = () => {
                 >
                   <div className="country-flag">
                     <img
-                      src={getFlagUrl(country.code)}
+                      src={getFlagUrl(country.code, country.name)}
                       alt={`${country.name} flag`}
                       className="country-flag-img"
                     />

@@ -19,19 +19,19 @@ function Plans() {
   // Helper function to get flag URL
   const getFlagUrl = (code) => {
     try {
-      // Validate country code format (2 letters)
-      if (!code || typeof code !== "string" || code.length !== 2) {
+      if (!code || typeof code !== "string") {
         return null;
       }
-
-      // Convert to uppercase and ensure only letters
-      const cleanCode = code.toUpperCase().replace(/[^A-Z]/g, "");
-      if (cleanCode.length !== 2) {
+      const cleanCode = code.toLowerCase().replace(/[^a-z]/g, "");
+      // Special case: always use 'ng' for Nigeria if code is 'nn'
+      if (cleanCode === 'nn') {
+        return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/ng-flag-01.png`;
+      }
+      // Accept 2 or 3 letter codes
+      if (cleanCode.length !== 2 && cleanCode.length !== 3) {
         return null;
       }
-
-      // Using the flagsapi.com service
-      return `https://flagsapi.com/${cleanCode}/flat/64.png`;
+      return `https://vectorflags.s3-us-west-2.amazonaws.com/flags/${cleanCode}-flag-01.png`;
     } catch (err) {
       console.error("Error generating flag URL:", err);
       return null;
