@@ -60,8 +60,13 @@ const Countries = () => {
     }
   };
 
-  const handleCountryClick = (countryCode) => {
-    navigate(`/plans/${countryCode}`);
+  const handleCountryClick = (countryCode, countryName) => {
+    // Special case for Negeri Sembilan
+    if (countryName.toLowerCase() === 'negeri sembilan') {
+      navigate('/nn');
+    } else {
+      navigate(`/plans/${countryCode}`);
+    }
   };
 
   const handleSearch = (e) => {
@@ -179,8 +184,12 @@ const Countries = () => {
               </div>
             </div>
             <div className="hero-cta">
-              <button className="hero-button">View All Countries</button>
-              <button className="hero-button-outline">How It Works</button>
+              <button
+  className="hero-button-outline"
+  onClick={() => navigate("/how-it-works")}
+>
+  How It Works
+</button>
             </div>
           </div>
           <div className="plans-hero-image">
@@ -204,7 +213,7 @@ const Countries = () => {
                 <div
                   key={country.id}
                   className="country-card"
-                  onClick={() => handleCountryClick(country.iso3)}
+                  onClick={() => handleCountryClick(country.code, country.name)}
                 >
                   <div className="country-flag">
                     <img
